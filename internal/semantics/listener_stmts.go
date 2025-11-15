@@ -1,53 +1,31 @@
 package semantics
 
 import (
-	"fmt"
-
 	p "Entrega1_GO/gen/grammar"
 )
 
+// a = expr ;
 func (s *SemanticListener) ExitAssign(ctx *p.AssignContext) {
 	lhs := ctx.ID().GetText()
-
 	v, ok := s.lookup(lhs)
 	if !ok {
 		s.err(ctx.GetStart(), "variable no declarada: "+lhs)
+		s.S.OnAssign(lhs, TVoid)
 		return
 	}
-	rT, ok := s.types.Pop()
-	if !ok {
-		s.err(ctx.GetStart(), "expresión vacía en asignación")
-		return
-	}
-	if !AssignCompatible(v.Type, rT) {
-		s.err(ctx.GetStart(), fmt.Sprintf("type mismatch: %s = %s", v.Type, rT))
-	}
+	s.S.OnAssign(lhs, v.Type)
 }
 
-func (s *SemanticListener) ExitIfStmt(ctx *p.IfStmtContext) {
-	t, ok := s.types.Pop()
-	if !ok {
-		s.err(ctx.GetStart(), "falta condición en if")
+// ES: print: ESCRIBE '(' printItemList? ')' ';'
+// EN lugar de "write", aquí imprimimos cada item.
+func (s *SemanticListener) ExitPrintItem(ctx *p.PrintItemContext) {
+	if str := ctx.STRING(); str != nil {
+		// STRING directo
+		s.S.OnStringConst(str.GetText())
+		s.S.OnWriteExpr()
 		return
 	}
-	if t != TBool {
-		s.err(ctx.GetStart(), "la condición de if debe ser bool (usa un relop como ==, <, etc.)")
-	}
-}
-
-func (s *SemanticListener) ExitWhileStmt(ctx *p.WhileStmtContext) {
-	t, ok := s.types.Pop()
-	if !ok {
-		s.err(ctx.GetStart(), "falta condición en while")
-		return
-	}
-	if t != TBool {
-		s.err(ctx.GetStart(), "la condición de while debe ser bool (usa un relop como ==, <, etc.)")
-	}
-}
-
-func (s *SemanticListener) ExitStmt(ctx *p.StmtContext) {
-	if c := ctx.Call(); c != nil {
-		_, _ = s.callRet.Pop()
-	}
+	// Es una expr: ya se fueron apilando operandos/operadores;
+	// aquí cerramos y emitimos el WRITE de esa expr.
+	s.S.OnWriteExpr()
 }

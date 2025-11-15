@@ -17,6 +17,7 @@ type SemanticListener struct {
 	Cube Cube
 
 	scope   []string
+	S       *SemState
 	types   Stack[TypeTag]
 	callRet Stack[TypeTag]
 
@@ -31,6 +32,7 @@ func NewSemanticListener() *SemanticListener {
 		FD:    fd,
 		Cube:  NewCube(),
 		scope: []string{"global"},
+		S:     NewSemState(),
 	}
 }
 
@@ -56,3 +58,5 @@ func (s *SemanticListener) Error() error {
 	}
 	return errors.New(b.String())
 }
+
+func (s *SemanticListener) Quads() *QuadQueue { return s.S.Quads() }

@@ -1,93 +1,48 @@
 package semantics
 
 import (
-	"fmt"
-
 	p "Entrega1_GO/gen/grammar"
+
+	"github.com/antlr4-go/antlr/v4"
 )
 
 func (s *SemanticListener) ExitIdent(ctx *p.IdentContext) {
 	name := ctx.ID().GetText()
-	v, ok := s.lookup(name)
-	if !ok {
+	if v, ok := s.lookup(name); ok {
+		s.S.OnId(name, v.Type)
+	} else {
 		s.err(ctx.GetStart(), "variable no declarada: "+name)
-		s.types.Push(TVoid)
-		return
+		s.S.OnId(name, TVoid)
 	}
-	s.types.Push(v.Type)
 }
-func (s *SemanticListener) ExitInt(ctx *p.IntContext)     { s.types.Push(TInt) }
-func (s *SemanticListener) ExitFloat(ctx *p.FloatContext) { s.types.Push(TFloat) }
 
-func (s *SemanticListener) ExitRelExpr(ctx *p.RelExprContext) {
-	if ctx.Relop() == nil {
-		return
-	}
-	rT, ok := s.types.Pop()
-	if !ok {
-		s.err(ctx.GetStart(), "expresión relacional incompleta (falta RHS)")
-		return
-	}
-	lT, ok := s.types.Pop()
-	if !ok {
-		s.err(ctx.GetStart(), "expresión relacional incompleta (falta LHS)")
-		return
-	}
-	if !isNumeric(lT) || !isNumeric(rT) {
-		s.err(ctx.GetStart(), fmt.Sprintf("relop requiere numéricos: (%s ? %s)", lT, rT))
-	}
-	s.types.Push(TBool)
-}
+// Constantes
+func (s *SemanticListener) ExitInt(ctx *p.IntContext)     { s.S.OnIntConst(ctx.GetText()) }
+func (s *SemanticListener) ExitFloat(ctx *p.FloatContext) { s.S.OnFloatConst(ctx.GetText()) }
 
 func (s *SemanticListener) ExitAddSub(ctx *p.AddSubContext) {
-	n := len(ctx.AllProd())
-	if n <= 1 {
-		return
-	}
-	hasFloat := false
-	for i := 0; i < n; i++ {
-		t, ok := s.types.Pop()
-		if !ok {
-			s.err(ctx.GetStart(), "expresión +|- incompleta")
-			return
+	for _, ch := range ctx.GetChildren() {
+		if t, ok := ch.(antlr.TerminalNode); ok {
+			switch t.GetText() {
+			case "+":
+				s.S.OnAdd()
+			case "-":
+				s.S.OnSub()
+			}
 		}
-		if t == TFloat {
-			hasFloat = true
-		}
-		if !isNumeric(t) {
-			s.err(ctx.GetStart(), "operación +|- requiere operandos numéricos")
-		}
-	}
-	if hasFloat {
-		s.types.Push(TFloat)
-	} else {
-		s.types.Push(TInt)
 	}
 }
 
 func (s *SemanticListener) ExitMulDiv(ctx *p.MulDivContext) {
-	n := len(ctx.AllUnary())
-	if n <= 1 {
-		return
-	}
-	hasFloat := false
-	for i := 0; i < n; i++ {
-		t, ok := s.types.Pop()
-		if !ok {
-			s.err(ctx.GetStart(), "expresión *|/ incompleta")
-			return
+	for _, ch := range ctx.GetChildren() {
+		if t, ok := ch.(antlr.TerminalNode); ok {
+			switch t.GetText() {
+			case "*":
+				s.S.OnMul()
+			case "/":
+				s.S.OnDiv()
+			}
 		}
-		if t == TFloat {
-			hasFloat = true
-		}
-		if !isNumeric(t) {
-			s.err(ctx.GetStart(), "operación *|/ requiere operandos numéricos")
-		}
-	}
-	if hasFloat {
-		s.types.Push(TFloat)
-	} else {
-		s.types.Push(TInt)
 	}
 }
 
@@ -96,26 +51,33 @@ func (s *SemanticListener) ExitPrefix(ctx *p.PrefixContext) {
 	if txt == "" {
 		return
 	}
-	op := rune(txt[0])
-
-	t, ok := s.types.Pop()
-	if !ok {
-		s.err(ctx.GetStart(), "unario sin operando")
-		return
-	}
-
-	switch op {
-	case '+', '-':
-		if !isNumeric(t) {
-			s.err(ctx.GetStart(), "operador unario +|- requiere numérico")
-		}
-		s.types.Push(t)
+	switch txt[0] {
+	case '-':
+		s.S.OnUMinus()
 	case '!':
-		if t != TBool {
-			s.err(ctx.GetStart(), "operador ! requiere bool (por ejemplo, una comparación)")
-		}
-		s.types.Push(TBool)
-	default:
-		s.types.Push(t)
+		s.S.OnNot()
 	}
 }
+
+func (s *SemanticListener) ExitRelExpr(ctx *p.RelExprContext) {
+	if r := ctx.Relop(); r != nil {
+		switch r.GetText() {
+		case "==":
+			s.S.OnEq()
+		case "!=":
+			s.S.OnNeq()
+		case "<":
+			s.S.OnLt()
+		case "<=":
+			s.S.OnLe()
+		case ">":
+			s.S.OnGt()
+		case ">=":
+			s.S.OnGe()
+		}
+	}
+	s.S.OnEndExpr()
+}
+
+func (s *SemanticListener) EnterParens(_ *p.ParensContext) { s.S.OnLParen() }
+func (s *SemanticListener) ExitParens(_ *p.ParensContext)  { s.S.OnRParen() }

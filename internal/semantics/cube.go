@@ -63,3 +63,54 @@ func AssignCompatible(lhs, rhs TypeTag) bool {
 	}
 	return false
 }
+
+func ResultType(op Op, left, right TypeTag) (TypeTag, bool) {
+	switch op {
+	case OAdd, OSub, OMul, ODiv:
+		if left == TFloat || right == TFloat {
+			if (left == TInt || left == TFloat) && (right == TInt || right == TFloat) {
+				return TFloat, true
+			}
+		}
+		if left == TInt && right == TInt {
+			return TInt, true
+		}
+		return TInvalid, false
+	case OEq, ONEq, OLt, OLe, OGt, OGe:
+		if (left == TInt || left == TFloat) && (right == TInt || right == TFloat) {
+			return TBool, true
+		}
+		return TInvalid, false
+	case OAnd, OOr:
+		if left == TBool && right == TBool {
+			return TBool, true
+		}
+		return TInvalid, false
+	default:
+		return TInvalid, false
+	}
+}
+
+func ResultTypeUnary(op Op, t TypeTag) (TypeTag, bool) {
+	switch op {
+	case OUMinus:
+		if t == TInt || t == TFloat {
+			return t, true
+		}
+	case ONot:
+		if t == TBool {
+			return TBool, true
+		}
+	}
+	return TInvalid, false
+}
+
+func IsCompatibleAssign(dst, src TypeTag) bool {
+	if dst == src {
+		return true
+	}
+	if dst == TFloat && src == TInt {
+		return true
+	}
+	return false
+}
