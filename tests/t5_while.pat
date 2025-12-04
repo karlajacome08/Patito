@@ -1,9 +1,12 @@
-programa p;
+programa test_func;
 vars
-  i: entero;
-inicio
-  i = 0;
-  mientras (i < 3) haz {
-    i = i + 1;
-  };
+  a : entero;
+nula imprimeA() {
+  escribe(a);
+};
+
+inicio {
+  a = 10;
+  imprimeA();
+}
 fin

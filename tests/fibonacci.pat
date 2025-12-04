@@ -24,7 +24,7 @@ nula fibSerie(limite : entero) {
 };
 
 inicio {
-  n = 21;           
+  n = 6;           
   fibSerie(n);     
 }
 fin
