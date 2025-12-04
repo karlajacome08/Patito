@@ -37,6 +37,12 @@ func main() {
 	}
 
 	fmt.Println("=== CUADRUPLOS ===")
-
 	fmt.Print(listener.S.Quads().String())
+
+	fmt.Println("=== EJECUCIÓN VM ===")
+	vm := semantics.NewVM(listener.S.Quads(), listener.Mem, listener.FD)
+	if err := vm.Run(); err != nil {
+		fmt.Println("Error en VM:", err)
+	}
+
 }

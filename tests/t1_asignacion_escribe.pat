@@ -1,7 +1,13 @@
-programa p;
+programa test;
 vars
-  a: entero;
-inicio
-  a = 5;
+  a : entero;
+  b : entero;
+
+inicio {
+  a = 3;
+  b = 5;
   escribe(a);
+  escribe(b);
+  escribe(a + b);
+}
 fin
