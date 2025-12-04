@@ -16,10 +16,9 @@ type SemanticListener struct {
 	FD   *FunctionDirectory
 	Cube Cube
 
-	scope   []string
-	S       *SemState
-	types   Stack[TypeTag]
-	callRet Stack[TypeTag]
+	scope []string
+	S     *SemState
+	types Stack[TypeTag]
 
 	Mem *MemManager
 

@@ -11,7 +11,6 @@ func (s *SemanticListener) ExitCall(ctx *p.CallContext) {
 	fn, ok := s.FD.Get(name)
 	if !ok {
 		s.err(ctx.GetStart(), "función no declarada: "+name)
-		s.callRet.Push(TVoid)
 		return
 	}
 
@@ -46,7 +45,6 @@ func (s *SemanticListener) ExitCall(ctx *p.CallContext) {
 	}
 
 	s.S.Quads().Emit(OGoSub, name, "", fmt.Sprintf("%d", fn.StartQuad))
-	s.callRet.Push(fn.ReturnType)
 }
 
 func (s *SemanticListener) ExitCallPrim(ctx *p.CallPrimContext) {
