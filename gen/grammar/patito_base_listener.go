@@ -81,6 +81,12 @@ func (s *BasePatitoListener) EnterStmt(ctx *StmtContext) {}
 // ExitStmt is called when production stmt is exited.
 func (s *BasePatitoListener) ExitStmt(ctx *StmtContext) {}
 
+// EnterReturnStmt is called when production returnStmt is entered.
+func (s *BasePatitoListener) EnterReturnStmt(ctx *ReturnStmtContext) {}
+
+// ExitReturnStmt is called when production returnStmt is exited.
+func (s *BasePatitoListener) ExitReturnStmt(ctx *ReturnStmtContext) {}
+
 // EnterAssign is called when production assign is entered.
 func (s *BasePatitoListener) EnterAssign(ctx *AssignContext) {}
 

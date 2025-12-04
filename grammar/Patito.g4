@@ -46,6 +46,12 @@ stmt
   | whileStmt
   | '[' stmt* ']' 
   | call ';'
+  | returnStmt 
+  ;
+
+
+returnStmt 
+  : RETURN expr ';'
   ;
 
 assign
@@ -140,6 +146,8 @@ ESCRIBE  : 'escribe';
 NULA     : 'nula';
 ENTERO   : 'entero';
 FLOTANTE : 'flotante';
+RETURN   : 'return';
+
 
 // Identificadores 
 ID       : [a-zA-Z_] [a-zA-Z0-9_]* ;

@@ -36,131 +36,134 @@ func patitoParserInit() {
 		"", "';'", "':'", "','", "'('", "')'", "'{'", "'}'", "'['", "']'", "'='",
 		"'=='", "'!='", "'<'", "'>'", "'+'", "'-'", "'*'", "'/'", "'!'", "'programa'",
 		"'vars'", "'inicio'", "'fin'", "'si'", "'sino'", "'mientras'", "'haz'",
-		"'escribe'", "'nula'", "'entero'", "'flotante'",
+		"'escribe'", "'nula'", "'entero'", "'flotante'", "'return'",
 	}
 	staticData.SymbolicNames = []string{
 		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
 		"", "", "", "PROGRAMA", "VARS", "INICIO", "FIN", "SI", "SINO", "MIENTRAS",
-		"HAZ", "ESCRIBE", "NULA", "ENTERO", "FLOTANTE", "ID", "INT", "FLOAT",
-		"STRING", "WS", "LINE_COMMENT", "BODY_COMMENT",
+		"HAZ", "ESCRIBE", "NULA", "ENTERO", "FLOTANTE", "RETURN", "ID", "INT",
+		"FLOAT", "STRING", "WS", "LINE_COMMENT", "BODY_COMMENT",
 	}
 	staticData.RuleNames = []string{
 		"program", "vars", "varDecl", "idList", "type_", "funcDef", "params",
-		"param", "body", "stmt", "assign", "print", "printItemList", "printItem",
-		"ifStmt", "ifMarkThen", "elseMark", "whileStmt", "whileStart", "whileCond",
-		"call", "expr", "relop", "sum", "prod", "unary", "primary",
+		"param", "body", "stmt", "returnStmt", "assign", "print", "printItemList",
+		"printItem", "ifStmt", "ifMarkThen", "elseMark", "whileStmt", "whileStart",
+		"whileCond", "call", "expr", "relop", "sum", "prod", "unary", "primary",
 	}
 	staticData.PredictionContextCache = antlr.NewPredictionContextCache()
 	staticData.serializedATN = []int32{
-		4, 1, 38, 260, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
+		4, 1, 39, 267, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
 		4, 2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 2, 8, 7, 8, 2, 9, 7, 9, 2, 10, 7,
 		10, 2, 11, 7, 11, 2, 12, 7, 12, 2, 13, 7, 13, 2, 14, 7, 14, 2, 15, 7, 15,
 		2, 16, 7, 16, 2, 17, 7, 17, 2, 18, 7, 18, 2, 19, 7, 19, 2, 20, 7, 20, 2,
 		21, 7, 21, 2, 22, 7, 22, 2, 23, 7, 23, 2, 24, 7, 24, 2, 25, 7, 25, 2, 26,
-		7, 26, 1, 0, 1, 0, 1, 0, 1, 0, 3, 0, 59, 8, 0, 1, 0, 5, 0, 62, 8, 0, 10,
-		0, 12, 0, 65, 9, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 5, 1, 74,
-		8, 1, 10, 1, 12, 1, 77, 9, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 3, 1, 3,
-		1, 3, 5, 3, 87, 8, 3, 10, 3, 12, 3, 90, 9, 3, 1, 4, 1, 4, 1, 5, 1, 5, 3,
-		5, 96, 8, 5, 1, 5, 1, 5, 1, 5, 3, 5, 101, 8, 5, 1, 5, 1, 5, 1, 5, 3, 5,
-		106, 8, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 6, 1, 6, 1, 6, 5, 6, 115, 8, 6, 10,
-		6, 12, 6, 118, 9, 6, 1, 7, 1, 7, 1, 7, 1, 7, 1, 8, 1, 8, 5, 8, 126, 8,
-		8, 10, 8, 12, 8, 129, 9, 8, 1, 8, 1, 8, 1, 9, 1, 9, 1, 9, 1, 9, 1, 9, 1,
-		9, 5, 9, 139, 8, 9, 10, 9, 12, 9, 142, 9, 9, 1, 9, 1, 9, 1, 9, 1, 9, 3,
-		9, 148, 8, 9, 1, 10, 1, 10, 1, 10, 1, 10, 1, 10, 1, 11, 1, 11, 1, 11, 3,
-		11, 158, 8, 11, 1, 11, 1, 11, 1, 11, 1, 12, 1, 12, 1, 12, 5, 12, 166, 8,
-		12, 10, 12, 12, 12, 169, 9, 12, 1, 13, 1, 13, 3, 13, 173, 8, 13, 1, 14,
-		1, 14, 1, 14, 1, 14, 1, 14, 1, 14, 1, 14, 1, 14, 1, 14, 1, 14, 3, 14, 185,
-		8, 14, 1, 14, 1, 14, 1, 15, 1, 15, 1, 16, 1, 16, 1, 17, 1, 17, 1, 17, 1,
-		17, 1, 17, 1, 17, 1, 17, 1, 17, 1, 17, 1, 17, 1, 18, 1, 18, 1, 19, 1, 19,
-		1, 20, 1, 20, 1, 20, 1, 20, 1, 20, 5, 20, 212, 8, 20, 10, 20, 12, 20, 215,
-		9, 20, 3, 20, 217, 8, 20, 1, 20, 1, 20, 1, 21, 1, 21, 1, 21, 1, 21, 3,
-		21, 225, 8, 21, 1, 22, 1, 22, 1, 23, 1, 23, 1, 23, 5, 23, 232, 8, 23, 10,
-		23, 12, 23, 235, 9, 23, 1, 24, 1, 24, 1, 24, 5, 24, 240, 8, 24, 10, 24,
-		12, 24, 243, 9, 24, 1, 25, 1, 25, 1, 25, 3, 25, 248, 8, 25, 1, 26, 1, 26,
-		1, 26, 1, 26, 1, 26, 1, 26, 1, 26, 1, 26, 3, 26, 258, 8, 26, 1, 26, 0,
-		0, 27, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34,
-		36, 38, 40, 42, 44, 46, 48, 50, 52, 0, 5, 1, 0, 30, 31, 1, 0, 11, 14, 1,
-		0, 15, 16, 1, 0, 17, 18, 2, 0, 15, 16, 19, 19, 261, 0, 54, 1, 0, 0, 0,
-		2, 71, 1, 0, 0, 0, 4, 78, 1, 0, 0, 0, 6, 83, 1, 0, 0, 0, 8, 91, 1, 0, 0,
-		0, 10, 95, 1, 0, 0, 0, 12, 111, 1, 0, 0, 0, 14, 119, 1, 0, 0, 0, 16, 123,
-		1, 0, 0, 0, 18, 147, 1, 0, 0, 0, 20, 149, 1, 0, 0, 0, 22, 154, 1, 0, 0,
-		0, 24, 162, 1, 0, 0, 0, 26, 172, 1, 0, 0, 0, 28, 174, 1, 0, 0, 0, 30, 188,
-		1, 0, 0, 0, 32, 190, 1, 0, 0, 0, 34, 192, 1, 0, 0, 0, 36, 202, 1, 0, 0,
-		0, 38, 204, 1, 0, 0, 0, 40, 206, 1, 0, 0, 0, 42, 220, 1, 0, 0, 0, 44, 226,
-		1, 0, 0, 0, 46, 228, 1, 0, 0, 0, 48, 236, 1, 0, 0, 0, 50, 247, 1, 0, 0,
-		0, 52, 257, 1, 0, 0, 0, 54, 55, 5, 20, 0, 0, 55, 56, 5, 32, 0, 0, 56, 58,
-		5, 1, 0, 0, 57, 59, 3, 2, 1, 0, 58, 57, 1, 0, 0, 0, 58, 59, 1, 0, 0, 0,
-		59, 63, 1, 0, 0, 0, 60, 62, 3, 10, 5, 0, 61, 60, 1, 0, 0, 0, 62, 65, 1,
-		0, 0, 0, 63, 61, 1, 0, 0, 0, 63, 64, 1, 0, 0, 0, 64, 66, 1, 0, 0, 0, 65,
-		63, 1, 0, 0, 0, 66, 67, 5, 22, 0, 0, 67, 68, 3, 16, 8, 0, 68, 69, 5, 23,
-		0, 0, 69, 70, 5, 0, 0, 1, 70, 1, 1, 0, 0, 0, 71, 75, 5, 21, 0, 0, 72, 74,
-		3, 4, 2, 0, 73, 72, 1, 0, 0, 0, 74, 77, 1, 0, 0, 0, 75, 73, 1, 0, 0, 0,
-		75, 76, 1, 0, 0, 0, 76, 3, 1, 0, 0, 0, 77, 75, 1, 0, 0, 0, 78, 79, 3, 6,
-		3, 0, 79, 80, 5, 2, 0, 0, 80, 81, 3, 8, 4, 0, 81, 82, 5, 1, 0, 0, 82, 5,
-		1, 0, 0, 0, 83, 88, 5, 32, 0, 0, 84, 85, 5, 3, 0, 0, 85, 87, 5, 32, 0,
-		0, 86, 84, 1, 0, 0, 0, 87, 90, 1, 0, 0, 0, 88, 86, 1, 0, 0, 0, 88, 89,
-		1, 0, 0, 0, 89, 7, 1, 0, 0, 0, 90, 88, 1, 0, 0, 0, 91, 92, 7, 0, 0, 0,
-		92, 9, 1, 0, 0, 0, 93, 96, 5, 29, 0, 0, 94, 96, 3, 8, 4, 0, 95, 93, 1,
-		0, 0, 0, 95, 94, 1, 0, 0, 0, 96, 97, 1, 0, 0, 0, 97, 98, 5, 32, 0, 0, 98,
-		100, 5, 4, 0, 0, 99, 101, 3, 12, 6, 0, 100, 99, 1, 0, 0, 0, 100, 101, 1,
-		0, 0, 0, 101, 102, 1, 0, 0, 0, 102, 103, 5, 5, 0, 0, 103, 105, 5, 6, 0,
-		0, 104, 106, 3, 2, 1, 0, 105, 104, 1, 0, 0, 0, 105, 106, 1, 0, 0, 0, 106,
-		107, 1, 0, 0, 0, 107, 108, 3, 16, 8, 0, 108, 109, 5, 7, 0, 0, 109, 110,
-		5, 1, 0, 0, 110, 11, 1, 0, 0, 0, 111, 116, 3, 14, 7, 0, 112, 113, 5, 3,
-		0, 0, 113, 115, 3, 14, 7, 0, 114, 112, 1, 0, 0, 0, 115, 118, 1, 0, 0, 0,
-		116, 114, 1, 0, 0, 0, 116, 117, 1, 0, 0, 0, 117, 13, 1, 0, 0, 0, 118, 116,
-		1, 0, 0, 0, 119, 120, 5, 32, 0, 0, 120, 121, 5, 2, 0, 0, 121, 122, 3, 8,
-		4, 0, 122, 15, 1, 0, 0, 0, 123, 127, 5, 6, 0, 0, 124, 126, 3, 18, 9, 0,
-		125, 124, 1, 0, 0, 0, 126, 129, 1, 0, 0, 0, 127, 125, 1, 0, 0, 0, 127,
-		128, 1, 0, 0, 0, 128, 130, 1, 0, 0, 0, 129, 127, 1, 0, 0, 0, 130, 131,
-		5, 7, 0, 0, 131, 17, 1, 0, 0, 0, 132, 148, 3, 20, 10, 0, 133, 148, 3, 22,
-		11, 0, 134, 148, 3, 28, 14, 0, 135, 148, 3, 34, 17, 0, 136, 140, 5, 8,
-		0, 0, 137, 139, 3, 18, 9, 0, 138, 137, 1, 0, 0, 0, 139, 142, 1, 0, 0, 0,
-		140, 138, 1, 0, 0, 0, 140, 141, 1, 0, 0, 0, 141, 143, 1, 0, 0, 0, 142,
-		140, 1, 0, 0, 0, 143, 148, 5, 9, 0, 0, 144, 145, 3, 40, 20, 0, 145, 146,
-		5, 1, 0, 0, 146, 148, 1, 0, 0, 0, 147, 132, 1, 0, 0, 0, 147, 133, 1, 0,
-		0, 0, 147, 134, 1, 0, 0, 0, 147, 135, 1, 0, 0, 0, 147, 136, 1, 0, 0, 0,
-		147, 144, 1, 0, 0, 0, 148, 19, 1, 0, 0, 0, 149, 150, 5, 32, 0, 0, 150,
-		151, 5, 10, 0, 0, 151, 152, 3, 42, 21, 0, 152, 153, 5, 1, 0, 0, 153, 21,
-		1, 0, 0, 0, 154, 155, 5, 28, 0, 0, 155, 157, 5, 4, 0, 0, 156, 158, 3, 24,
-		12, 0, 157, 156, 1, 0, 0, 0, 157, 158, 1, 0, 0, 0, 158, 159, 1, 0, 0, 0,
-		159, 160, 5, 5, 0, 0, 160, 161, 5, 1, 0, 0, 161, 23, 1, 0, 0, 0, 162, 167,
-		3, 26, 13, 0, 163, 164, 5, 3, 0, 0, 164, 166, 3, 26, 13, 0, 165, 163, 1,
-		0, 0, 0, 166, 169, 1, 0, 0, 0, 167, 165, 1, 0, 0, 0, 167, 168, 1, 0, 0,
-		0, 168, 25, 1, 0, 0, 0, 169, 167, 1, 0, 0, 0, 170, 173, 5, 35, 0, 0, 171,
-		173, 3, 42, 21, 0, 172, 170, 1, 0, 0, 0, 172, 171, 1, 0, 0, 0, 173, 27,
-		1, 0, 0, 0, 174, 175, 5, 24, 0, 0, 175, 176, 5, 4, 0, 0, 176, 177, 3, 42,
-		21, 0, 177, 178, 5, 5, 0, 0, 178, 179, 3, 30, 15, 0, 179, 184, 3, 16, 8,
-		0, 180, 181, 5, 25, 0, 0, 181, 182, 3, 32, 16, 0, 182, 183, 3, 16, 8, 0,
-		183, 185, 1, 0, 0, 0, 184, 180, 1, 0, 0, 0, 184, 185, 1, 0, 0, 0, 185,
-		186, 1, 0, 0, 0, 186, 187, 5, 1, 0, 0, 187, 29, 1, 0, 0, 0, 188, 189, 1,
-		0, 0, 0, 189, 31, 1, 0, 0, 0, 190, 191, 1, 0, 0, 0, 191, 33, 1, 0, 0, 0,
-		192, 193, 5, 26, 0, 0, 193, 194, 3, 36, 18, 0, 194, 195, 5, 4, 0, 0, 195,
-		196, 3, 42, 21, 0, 196, 197, 5, 5, 0, 0, 197, 198, 3, 38, 19, 0, 198, 199,
-		5, 27, 0, 0, 199, 200, 3, 16, 8, 0, 200, 201, 5, 1, 0, 0, 201, 35, 1, 0,
-		0, 0, 202, 203, 1, 0, 0, 0, 203, 37, 1, 0, 0, 0, 204, 205, 1, 0, 0, 0,
-		205, 39, 1, 0, 0, 0, 206, 207, 5, 32, 0, 0, 207, 216, 5, 4, 0, 0, 208,
-		213, 3, 42, 21, 0, 209, 210, 5, 3, 0, 0, 210, 212, 3, 42, 21, 0, 211, 209,
-		1, 0, 0, 0, 212, 215, 1, 0, 0, 0, 213, 211, 1, 0, 0, 0, 213, 214, 1, 0,
-		0, 0, 214, 217, 1, 0, 0, 0, 215, 213, 1, 0, 0, 0, 216, 208, 1, 0, 0, 0,
-		216, 217, 1, 0, 0, 0, 217, 218, 1, 0, 0, 0, 218, 219, 5, 5, 0, 0, 219,
-		41, 1, 0, 0, 0, 220, 224, 3, 46, 23, 0, 221, 222, 3, 44, 22, 0, 222, 223,
-		3, 46, 23, 0, 223, 225, 1, 0, 0, 0, 224, 221, 1, 0, 0, 0, 224, 225, 1,
-		0, 0, 0, 225, 43, 1, 0, 0, 0, 226, 227, 7, 1, 0, 0, 227, 45, 1, 0, 0, 0,
-		228, 233, 3, 48, 24, 0, 229, 230, 7, 2, 0, 0, 230, 232, 3, 48, 24, 0, 231,
-		229, 1, 0, 0, 0, 232, 235, 1, 0, 0, 0, 233, 231, 1, 0, 0, 0, 233, 234,
-		1, 0, 0, 0, 234, 47, 1, 0, 0, 0, 235, 233, 1, 0, 0, 0, 236, 241, 3, 50,
-		25, 0, 237, 238, 7, 3, 0, 0, 238, 240, 3, 50, 25, 0, 239, 237, 1, 0, 0,
-		0, 240, 243, 1, 0, 0, 0, 241, 239, 1, 0, 0, 0, 241, 242, 1, 0, 0, 0, 242,
-		49, 1, 0, 0, 0, 243, 241, 1, 0, 0, 0, 244, 245, 7, 4, 0, 0, 245, 248, 3,
-		50, 25, 0, 246, 248, 3, 52, 26, 0, 247, 244, 1, 0, 0, 0, 247, 246, 1, 0,
-		0, 0, 248, 51, 1, 0, 0, 0, 249, 250, 5, 4, 0, 0, 250, 251, 3, 42, 21, 0,
-		251, 252, 5, 5, 0, 0, 252, 258, 1, 0, 0, 0, 253, 258, 3, 40, 20, 0, 254,
-		258, 5, 32, 0, 0, 255, 258, 5, 33, 0, 0, 256, 258, 5, 34, 0, 0, 257, 249,
-		1, 0, 0, 0, 257, 253, 1, 0, 0, 0, 257, 254, 1, 0, 0, 0, 257, 255, 1, 0,
-		0, 0, 257, 256, 1, 0, 0, 0, 258, 53, 1, 0, 0, 0, 22, 58, 63, 75, 88, 95,
-		100, 105, 116, 127, 140, 147, 157, 167, 172, 184, 213, 216, 224, 233, 241,
-		247, 257,
+		7, 26, 2, 27, 7, 27, 1, 0, 1, 0, 1, 0, 1, 0, 3, 0, 61, 8, 0, 1, 0, 5, 0,
+		64, 8, 0, 10, 0, 12, 0, 67, 9, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1,
+		1, 5, 1, 76, 8, 1, 10, 1, 12, 1, 79, 9, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,
+		1, 3, 1, 3, 1, 3, 5, 3, 89, 8, 3, 10, 3, 12, 3, 92, 9, 3, 1, 4, 1, 4, 1,
+		5, 1, 5, 3, 5, 98, 8, 5, 1, 5, 1, 5, 1, 5, 3, 5, 103, 8, 5, 1, 5, 1, 5,
+		1, 5, 3, 5, 108, 8, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 6, 1, 6, 1, 6, 5, 6,
+		117, 8, 6, 10, 6, 12, 6, 120, 9, 6, 1, 7, 1, 7, 1, 7, 1, 7, 1, 8, 1, 8,
+		5, 8, 128, 8, 8, 10, 8, 12, 8, 131, 9, 8, 1, 8, 1, 8, 1, 9, 1, 9, 1, 9,
+		1, 9, 1, 9, 1, 9, 5, 9, 141, 8, 9, 10, 9, 12, 9, 144, 9, 9, 1, 9, 1, 9,
+		1, 9, 1, 9, 1, 9, 3, 9, 151, 8, 9, 1, 10, 1, 10, 1, 10, 1, 10, 1, 11, 1,
+		11, 1, 11, 1, 11, 1, 11, 1, 12, 1, 12, 1, 12, 3, 12, 165, 8, 12, 1, 12,
+		1, 12, 1, 12, 1, 13, 1, 13, 1, 13, 5, 13, 173, 8, 13, 10, 13, 12, 13, 176,
+		9, 13, 1, 14, 1, 14, 3, 14, 180, 8, 14, 1, 15, 1, 15, 1, 15, 1, 15, 1,
+		15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 3, 15, 192, 8, 15, 1, 15, 1, 15,
+		1, 16, 1, 16, 1, 17, 1, 17, 1, 18, 1, 18, 1, 18, 1, 18, 1, 18, 1, 18, 1,
+		18, 1, 18, 1, 18, 1, 18, 1, 19, 1, 19, 1, 20, 1, 20, 1, 21, 1, 21, 1, 21,
+		1, 21, 1, 21, 5, 21, 219, 8, 21, 10, 21, 12, 21, 222, 9, 21, 3, 21, 224,
+		8, 21, 1, 21, 1, 21, 1, 22, 1, 22, 1, 22, 1, 22, 3, 22, 232, 8, 22, 1,
+		23, 1, 23, 1, 24, 1, 24, 1, 24, 5, 24, 239, 8, 24, 10, 24, 12, 24, 242,
+		9, 24, 1, 25, 1, 25, 1, 25, 5, 25, 247, 8, 25, 10, 25, 12, 25, 250, 9,
+		25, 1, 26, 1, 26, 1, 26, 3, 26, 255, 8, 26, 1, 27, 1, 27, 1, 27, 1, 27,
+		1, 27, 1, 27, 1, 27, 1, 27, 3, 27, 265, 8, 27, 1, 27, 0, 0, 28, 0, 2, 4,
+		6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42,
+		44, 46, 48, 50, 52, 54, 0, 5, 1, 0, 30, 31, 1, 0, 11, 14, 1, 0, 15, 16,
+		1, 0, 17, 18, 2, 0, 15, 16, 19, 19, 268, 0, 56, 1, 0, 0, 0, 2, 73, 1, 0,
+		0, 0, 4, 80, 1, 0, 0, 0, 6, 85, 1, 0, 0, 0, 8, 93, 1, 0, 0, 0, 10, 97,
+		1, 0, 0, 0, 12, 113, 1, 0, 0, 0, 14, 121, 1, 0, 0, 0, 16, 125, 1, 0, 0,
+		0, 18, 150, 1, 0, 0, 0, 20, 152, 1, 0, 0, 0, 22, 156, 1, 0, 0, 0, 24, 161,
+		1, 0, 0, 0, 26, 169, 1, 0, 0, 0, 28, 179, 1, 0, 0, 0, 30, 181, 1, 0, 0,
+		0, 32, 195, 1, 0, 0, 0, 34, 197, 1, 0, 0, 0, 36, 199, 1, 0, 0, 0, 38, 209,
+		1, 0, 0, 0, 40, 211, 1, 0, 0, 0, 42, 213, 1, 0, 0, 0, 44, 227, 1, 0, 0,
+		0, 46, 233, 1, 0, 0, 0, 48, 235, 1, 0, 0, 0, 50, 243, 1, 0, 0, 0, 52, 254,
+		1, 0, 0, 0, 54, 264, 1, 0, 0, 0, 56, 57, 5, 20, 0, 0, 57, 58, 5, 33, 0,
+		0, 58, 60, 5, 1, 0, 0, 59, 61, 3, 2, 1, 0, 60, 59, 1, 0, 0, 0, 60, 61,
+		1, 0, 0, 0, 61, 65, 1, 0, 0, 0, 62, 64, 3, 10, 5, 0, 63, 62, 1, 0, 0, 0,
+		64, 67, 1, 0, 0, 0, 65, 63, 1, 0, 0, 0, 65, 66, 1, 0, 0, 0, 66, 68, 1,
+		0, 0, 0, 67, 65, 1, 0, 0, 0, 68, 69, 5, 22, 0, 0, 69, 70, 3, 16, 8, 0,
+		70, 71, 5, 23, 0, 0, 71, 72, 5, 0, 0, 1, 72, 1, 1, 0, 0, 0, 73, 77, 5,
+		21, 0, 0, 74, 76, 3, 4, 2, 0, 75, 74, 1, 0, 0, 0, 76, 79, 1, 0, 0, 0, 77,
+		75, 1, 0, 0, 0, 77, 78, 1, 0, 0, 0, 78, 3, 1, 0, 0, 0, 79, 77, 1, 0, 0,
+		0, 80, 81, 3, 6, 3, 0, 81, 82, 5, 2, 0, 0, 82, 83, 3, 8, 4, 0, 83, 84,
+		5, 1, 0, 0, 84, 5, 1, 0, 0, 0, 85, 90, 5, 33, 0, 0, 86, 87, 5, 3, 0, 0,
+		87, 89, 5, 33, 0, 0, 88, 86, 1, 0, 0, 0, 89, 92, 1, 0, 0, 0, 90, 88, 1,
+		0, 0, 0, 90, 91, 1, 0, 0, 0, 91, 7, 1, 0, 0, 0, 92, 90, 1, 0, 0, 0, 93,
+		94, 7, 0, 0, 0, 94, 9, 1, 0, 0, 0, 95, 98, 5, 29, 0, 0, 96, 98, 3, 8, 4,
+		0, 97, 95, 1, 0, 0, 0, 97, 96, 1, 0, 0, 0, 98, 99, 1, 0, 0, 0, 99, 100,
+		5, 33, 0, 0, 100, 102, 5, 4, 0, 0, 101, 103, 3, 12, 6, 0, 102, 101, 1,
+		0, 0, 0, 102, 103, 1, 0, 0, 0, 103, 104, 1, 0, 0, 0, 104, 105, 5, 5, 0,
+		0, 105, 107, 5, 6, 0, 0, 106, 108, 3, 2, 1, 0, 107, 106, 1, 0, 0, 0, 107,
+		108, 1, 0, 0, 0, 108, 109, 1, 0, 0, 0, 109, 110, 3, 16, 8, 0, 110, 111,
+		5, 7, 0, 0, 111, 112, 5, 1, 0, 0, 112, 11, 1, 0, 0, 0, 113, 118, 3, 14,
+		7, 0, 114, 115, 5, 3, 0, 0, 115, 117, 3, 14, 7, 0, 116, 114, 1, 0, 0, 0,
+		117, 120, 1, 0, 0, 0, 118, 116, 1, 0, 0, 0, 118, 119, 1, 0, 0, 0, 119,
+		13, 1, 0, 0, 0, 120, 118, 1, 0, 0, 0, 121, 122, 5, 33, 0, 0, 122, 123,
+		5, 2, 0, 0, 123, 124, 3, 8, 4, 0, 124, 15, 1, 0, 0, 0, 125, 129, 5, 6,
+		0, 0, 126, 128, 3, 18, 9, 0, 127, 126, 1, 0, 0, 0, 128, 131, 1, 0, 0, 0,
+		129, 127, 1, 0, 0, 0, 129, 130, 1, 0, 0, 0, 130, 132, 1, 0, 0, 0, 131,
+		129, 1, 0, 0, 0, 132, 133, 5, 7, 0, 0, 133, 17, 1, 0, 0, 0, 134, 151, 3,
+		22, 11, 0, 135, 151, 3, 24, 12, 0, 136, 151, 3, 30, 15, 0, 137, 151, 3,
+		36, 18, 0, 138, 142, 5, 8, 0, 0, 139, 141, 3, 18, 9, 0, 140, 139, 1, 0,
+		0, 0, 141, 144, 1, 0, 0, 0, 142, 140, 1, 0, 0, 0, 142, 143, 1, 0, 0, 0,
+		143, 145, 1, 0, 0, 0, 144, 142, 1, 0, 0, 0, 145, 151, 5, 9, 0, 0, 146,
+		147, 3, 42, 21, 0, 147, 148, 5, 1, 0, 0, 148, 151, 1, 0, 0, 0, 149, 151,
+		3, 20, 10, 0, 150, 134, 1, 0, 0, 0, 150, 135, 1, 0, 0, 0, 150, 136, 1,
+		0, 0, 0, 150, 137, 1, 0, 0, 0, 150, 138, 1, 0, 0, 0, 150, 146, 1, 0, 0,
+		0, 150, 149, 1, 0, 0, 0, 151, 19, 1, 0, 0, 0, 152, 153, 5, 32, 0, 0, 153,
+		154, 3, 44, 22, 0, 154, 155, 5, 1, 0, 0, 155, 21, 1, 0, 0, 0, 156, 157,
+		5, 33, 0, 0, 157, 158, 5, 10, 0, 0, 158, 159, 3, 44, 22, 0, 159, 160, 5,
+		1, 0, 0, 160, 23, 1, 0, 0, 0, 161, 162, 5, 28, 0, 0, 162, 164, 5, 4, 0,
+		0, 163, 165, 3, 26, 13, 0, 164, 163, 1, 0, 0, 0, 164, 165, 1, 0, 0, 0,
+		165, 166, 1, 0, 0, 0, 166, 167, 5, 5, 0, 0, 167, 168, 5, 1, 0, 0, 168,
+		25, 1, 0, 0, 0, 169, 174, 3, 28, 14, 0, 170, 171, 5, 3, 0, 0, 171, 173,
+		3, 28, 14, 0, 172, 170, 1, 0, 0, 0, 173, 176, 1, 0, 0, 0, 174, 172, 1,
+		0, 0, 0, 174, 175, 1, 0, 0, 0, 175, 27, 1, 0, 0, 0, 176, 174, 1, 0, 0,
+		0, 177, 180, 5, 36, 0, 0, 178, 180, 3, 44, 22, 0, 179, 177, 1, 0, 0, 0,
+		179, 178, 1, 0, 0, 0, 180, 29, 1, 0, 0, 0, 181, 182, 5, 24, 0, 0, 182,
+		183, 5, 4, 0, 0, 183, 184, 3, 44, 22, 0, 184, 185, 5, 5, 0, 0, 185, 186,
+		3, 32, 16, 0, 186, 191, 3, 16, 8, 0, 187, 188, 5, 25, 0, 0, 188, 189, 3,
+		34, 17, 0, 189, 190, 3, 16, 8, 0, 190, 192, 1, 0, 0, 0, 191, 187, 1, 0,
+		0, 0, 191, 192, 1, 0, 0, 0, 192, 193, 1, 0, 0, 0, 193, 194, 5, 1, 0, 0,
+		194, 31, 1, 0, 0, 0, 195, 196, 1, 0, 0, 0, 196, 33, 1, 0, 0, 0, 197, 198,
+		1, 0, 0, 0, 198, 35, 1, 0, 0, 0, 199, 200, 5, 26, 0, 0, 200, 201, 3, 38,
+		19, 0, 201, 202, 5, 4, 0, 0, 202, 203, 3, 44, 22, 0, 203, 204, 5, 5, 0,
+		0, 204, 205, 3, 40, 20, 0, 205, 206, 5, 27, 0, 0, 206, 207, 3, 16, 8, 0,
+		207, 208, 5, 1, 0, 0, 208, 37, 1, 0, 0, 0, 209, 210, 1, 0, 0, 0, 210, 39,
+		1, 0, 0, 0, 211, 212, 1, 0, 0, 0, 212, 41, 1, 0, 0, 0, 213, 214, 5, 33,
+		0, 0, 214, 223, 5, 4, 0, 0, 215, 220, 3, 44, 22, 0, 216, 217, 5, 3, 0,
+		0, 217, 219, 3, 44, 22, 0, 218, 216, 1, 0, 0, 0, 219, 222, 1, 0, 0, 0,
+		220, 218, 1, 0, 0, 0, 220, 221, 1, 0, 0, 0, 221, 224, 1, 0, 0, 0, 222,
+		220, 1, 0, 0, 0, 223, 215, 1, 0, 0, 0, 223, 224, 1, 0, 0, 0, 224, 225,
+		1, 0, 0, 0, 225, 226, 5, 5, 0, 0, 226, 43, 1, 0, 0, 0, 227, 231, 3, 48,
+		24, 0, 228, 229, 3, 46, 23, 0, 229, 230, 3, 48, 24, 0, 230, 232, 1, 0,
+		0, 0, 231, 228, 1, 0, 0, 0, 231, 232, 1, 0, 0, 0, 232, 45, 1, 0, 0, 0,
+		233, 234, 7, 1, 0, 0, 234, 47, 1, 0, 0, 0, 235, 240, 3, 50, 25, 0, 236,
+		237, 7, 2, 0, 0, 237, 239, 3, 50, 25, 0, 238, 236, 1, 0, 0, 0, 239, 242,
+		1, 0, 0, 0, 240, 238, 1, 0, 0, 0, 240, 241, 1, 0, 0, 0, 241, 49, 1, 0,
+		0, 0, 242, 240, 1, 0, 0, 0, 243, 248, 3, 52, 26, 0, 244, 245, 7, 3, 0,
+		0, 245, 247, 3, 52, 26, 0, 246, 244, 1, 0, 0, 0, 247, 250, 1, 0, 0, 0,
+		248, 246, 1, 0, 0, 0, 248, 249, 1, 0, 0, 0, 249, 51, 1, 0, 0, 0, 250, 248,
+		1, 0, 0, 0, 251, 252, 7, 4, 0, 0, 252, 255, 3, 52, 26, 0, 253, 255, 3,
+		54, 27, 0, 254, 251, 1, 0, 0, 0, 254, 253, 1, 0, 0, 0, 255, 53, 1, 0, 0,
+		0, 256, 257, 5, 4, 0, 0, 257, 258, 3, 44, 22, 0, 258, 259, 5, 5, 0, 0,
+		259, 265, 1, 0, 0, 0, 260, 265, 3, 42, 21, 0, 261, 265, 5, 33, 0, 0, 262,
+		265, 5, 34, 0, 0, 263, 265, 5, 35, 0, 0, 264, 256, 1, 0, 0, 0, 264, 260,
+		1, 0, 0, 0, 264, 261, 1, 0, 0, 0, 264, 262, 1, 0, 0, 0, 264, 263, 1, 0,
+		0, 0, 265, 55, 1, 0, 0, 0, 22, 60, 65, 77, 90, 97, 102, 107, 118, 129,
+		142, 150, 164, 174, 179, 191, 220, 223, 231, 240, 248, 254, 264,
 	}
 	deserializer := antlr.NewATNDeserializer(nil)
 	staticData.atn = deserializer.Deserialize(staticData.serializedATN)
@@ -230,13 +233,14 @@ const (
 	PatitoParserNULA         = 29
 	PatitoParserENTERO       = 30
 	PatitoParserFLOTANTE     = 31
-	PatitoParserID           = 32
-	PatitoParserINT          = 33
-	PatitoParserFLOAT        = 34
-	PatitoParserSTRING       = 35
-	PatitoParserWS           = 36
-	PatitoParserLINE_COMMENT = 37
-	PatitoParserBODY_COMMENT = 38
+	PatitoParserRETURN       = 32
+	PatitoParserID           = 33
+	PatitoParserINT          = 34
+	PatitoParserFLOAT        = 35
+	PatitoParserSTRING       = 36
+	PatitoParserWS           = 37
+	PatitoParserLINE_COMMENT = 38
+	PatitoParserBODY_COMMENT = 39
 )
 
 // PatitoParser rules.
@@ -251,23 +255,24 @@ const (
 	PatitoParserRULE_param         = 7
 	PatitoParserRULE_body          = 8
 	PatitoParserRULE_stmt          = 9
-	PatitoParserRULE_assign        = 10
-	PatitoParserRULE_print         = 11
-	PatitoParserRULE_printItemList = 12
-	PatitoParserRULE_printItem     = 13
-	PatitoParserRULE_ifStmt        = 14
-	PatitoParserRULE_ifMarkThen    = 15
-	PatitoParserRULE_elseMark      = 16
-	PatitoParserRULE_whileStmt     = 17
-	PatitoParserRULE_whileStart    = 18
-	PatitoParserRULE_whileCond     = 19
-	PatitoParserRULE_call          = 20
-	PatitoParserRULE_expr          = 21
-	PatitoParserRULE_relop         = 22
-	PatitoParserRULE_sum           = 23
-	PatitoParserRULE_prod          = 24
-	PatitoParserRULE_unary         = 25
-	PatitoParserRULE_primary       = 26
+	PatitoParserRULE_returnStmt    = 10
+	PatitoParserRULE_assign        = 11
+	PatitoParserRULE_print         = 12
+	PatitoParserRULE_printItemList = 13
+	PatitoParserRULE_printItem     = 14
+	PatitoParserRULE_ifStmt        = 15
+	PatitoParserRULE_ifMarkThen    = 16
+	PatitoParserRULE_elseMark      = 17
+	PatitoParserRULE_whileStmt     = 18
+	PatitoParserRULE_whileStart    = 19
+	PatitoParserRULE_whileCond     = 20
+	PatitoParserRULE_call          = 21
+	PatitoParserRULE_expr          = 22
+	PatitoParserRULE_relop         = 23
+	PatitoParserRULE_sum           = 24
+	PatitoParserRULE_prod          = 25
+	PatitoParserRULE_unary         = 26
+	PatitoParserRULE_primary       = 27
 )
 
 // IProgramContext is an interface to support dynamic dispatch.
@@ -454,7 +459,7 @@ func (p *PatitoParser) Program() (localctx IProgramContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(54)
+		p.SetState(56)
 		p.Match(PatitoParserPROGRAMA)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -462,7 +467,7 @@ func (p *PatitoParser) Program() (localctx IProgramContext) {
 		}
 	}
 	{
-		p.SetState(55)
+		p.SetState(57)
 		p.Match(PatitoParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -470,14 +475,14 @@ func (p *PatitoParser) Program() (localctx IProgramContext) {
 		}
 	}
 	{
-		p.SetState(56)
+		p.SetState(58)
 		p.Match(PatitoParserT__0)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(58)
+	p.SetState(60)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -486,12 +491,12 @@ func (p *PatitoParser) Program() (localctx IProgramContext) {
 
 	if _la == PatitoParserVARS {
 		{
-			p.SetState(57)
+			p.SetState(59)
 			p.Vars()
 		}
 
 	}
-	p.SetState(63)
+	p.SetState(65)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -500,11 +505,11 @@ func (p *PatitoParser) Program() (localctx IProgramContext) {
 
 	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&3758096384) != 0 {
 		{
-			p.SetState(60)
+			p.SetState(62)
 			p.FuncDef()
 		}
 
-		p.SetState(65)
+		p.SetState(67)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -512,7 +517,7 @@ func (p *PatitoParser) Program() (localctx IProgramContext) {
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(66)
+		p.SetState(68)
 		p.Match(PatitoParserINICIO)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -520,11 +525,11 @@ func (p *PatitoParser) Program() (localctx IProgramContext) {
 		}
 	}
 	{
-		p.SetState(67)
+		p.SetState(69)
 		p.Body()
 	}
 	{
-		p.SetState(68)
+		p.SetState(70)
 		p.Match(PatitoParserFIN)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -532,7 +537,7 @@ func (p *PatitoParser) Program() (localctx IProgramContext) {
 		}
 	}
 	{
-		p.SetState(69)
+		p.SetState(71)
 		p.Match(PatitoParserEOF)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -683,14 +688,14 @@ func (p *PatitoParser) Vars() (localctx IVarsContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(71)
+		p.SetState(73)
 		p.Match(PatitoParserVARS)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(75)
+	p.SetState(77)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -699,11 +704,11 @@ func (p *PatitoParser) Vars() (localctx IVarsContext) {
 
 	for _la == PatitoParserID {
 		{
-			p.SetState(72)
+			p.SetState(74)
 			p.VarDecl()
 		}
 
-		p.SetState(77)
+		p.SetState(79)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -838,11 +843,11 @@ func (p *PatitoParser) VarDecl() (localctx IVarDeclContext) {
 	p.EnterRule(localctx, 4, PatitoParserRULE_varDecl)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(78)
+		p.SetState(80)
 		p.IdList()
 	}
 	{
-		p.SetState(79)
+		p.SetState(81)
 		p.Match(PatitoParserT__1)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -850,11 +855,11 @@ func (p *PatitoParser) VarDecl() (localctx IVarDeclContext) {
 		}
 	}
 	{
-		p.SetState(80)
+		p.SetState(82)
 		p.Type_()
 	}
 	{
-		p.SetState(81)
+		p.SetState(83)
 		p.Match(PatitoParserT__0)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -967,14 +972,14 @@ func (p *PatitoParser) IdList() (localctx IIdListContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(83)
+		p.SetState(85)
 		p.Match(PatitoParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(88)
+	p.SetState(90)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -983,7 +988,7 @@ func (p *PatitoParser) IdList() (localctx IIdListContext) {
 
 	for _la == PatitoParserT__2 {
 		{
-			p.SetState(84)
+			p.SetState(86)
 			p.Match(PatitoParserT__2)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -991,7 +996,7 @@ func (p *PatitoParser) IdList() (localctx IIdListContext) {
 			}
 		}
 		{
-			p.SetState(85)
+			p.SetState(87)
 			p.Match(PatitoParserID)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -999,7 +1004,7 @@ func (p *PatitoParser) IdList() (localctx IIdListContext) {
 			}
 		}
 
-		p.SetState(90)
+		p.SetState(92)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -1112,7 +1117,7 @@ func (p *PatitoParser) Type_() (localctx IType_Context) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(91)
+		p.SetState(93)
 		_la = p.GetTokenStream().LA(1)
 
 		if !(_la == PatitoParserENTERO || _la == PatitoParserFLOTANTE) {
@@ -1295,7 +1300,7 @@ func (p *PatitoParser) FuncDef() (localctx IFuncDefContext) {
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(95)
+	p.SetState(97)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -1304,7 +1309,7 @@ func (p *PatitoParser) FuncDef() (localctx IFuncDefContext) {
 	switch p.GetTokenStream().LA(1) {
 	case PatitoParserNULA:
 		{
-			p.SetState(93)
+			p.SetState(95)
 			p.Match(PatitoParserNULA)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -1314,7 +1319,7 @@ func (p *PatitoParser) FuncDef() (localctx IFuncDefContext) {
 
 	case PatitoParserENTERO, PatitoParserFLOTANTE:
 		{
-			p.SetState(94)
+			p.SetState(96)
 			p.Type_()
 		}
 
@@ -1323,7 +1328,7 @@ func (p *PatitoParser) FuncDef() (localctx IFuncDefContext) {
 		goto errorExit
 	}
 	{
-		p.SetState(97)
+		p.SetState(99)
 		p.Match(PatitoParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1331,14 +1336,14 @@ func (p *PatitoParser) FuncDef() (localctx IFuncDefContext) {
 		}
 	}
 	{
-		p.SetState(98)
+		p.SetState(100)
 		p.Match(PatitoParserT__3)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(100)
+	p.SetState(102)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -1347,13 +1352,13 @@ func (p *PatitoParser) FuncDef() (localctx IFuncDefContext) {
 
 	if _la == PatitoParserID {
 		{
-			p.SetState(99)
+			p.SetState(101)
 			p.Params()
 		}
 
 	}
 	{
-		p.SetState(102)
+		p.SetState(104)
 		p.Match(PatitoParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1361,14 +1366,14 @@ func (p *PatitoParser) FuncDef() (localctx IFuncDefContext) {
 		}
 	}
 	{
-		p.SetState(103)
+		p.SetState(105)
 		p.Match(PatitoParserT__5)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(105)
+	p.SetState(107)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -1377,17 +1382,17 @@ func (p *PatitoParser) FuncDef() (localctx IFuncDefContext) {
 
 	if _la == PatitoParserVARS {
 		{
-			p.SetState(104)
+			p.SetState(106)
 			p.Vars()
 		}
 
 	}
 	{
-		p.SetState(107)
+		p.SetState(109)
 		p.Body()
 	}
 	{
-		p.SetState(108)
+		p.SetState(110)
 		p.Match(PatitoParserT__6)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1395,7 +1400,7 @@ func (p *PatitoParser) FuncDef() (localctx IFuncDefContext) {
 		}
 	}
 	{
-		p.SetState(109)
+		p.SetState(111)
 		p.Match(PatitoParserT__0)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1541,10 +1546,10 @@ func (p *PatitoParser) Params() (localctx IParamsContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(111)
+		p.SetState(113)
 		p.Param()
 	}
-	p.SetState(116)
+	p.SetState(118)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -1553,7 +1558,7 @@ func (p *PatitoParser) Params() (localctx IParamsContext) {
 
 	for _la == PatitoParserT__2 {
 		{
-			p.SetState(112)
+			p.SetState(114)
 			p.Match(PatitoParserT__2)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -1561,11 +1566,11 @@ func (p *PatitoParser) Params() (localctx IParamsContext) {
 			}
 		}
 		{
-			p.SetState(113)
+			p.SetState(115)
 			p.Param()
 		}
 
-		p.SetState(118)
+		p.SetState(120)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -1688,7 +1693,7 @@ func (p *PatitoParser) Param() (localctx IParamContext) {
 	p.EnterRule(localctx, 14, PatitoParserRULE_param)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(119)
+		p.SetState(121)
 		p.Match(PatitoParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1696,7 +1701,7 @@ func (p *PatitoParser) Param() (localctx IParamContext) {
 		}
 	}
 	{
-		p.SetState(120)
+		p.SetState(122)
 		p.Match(PatitoParserT__1)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1704,7 +1709,7 @@ func (p *PatitoParser) Param() (localctx IParamContext) {
 		}
 	}
 	{
-		p.SetState(121)
+		p.SetState(123)
 		p.Type_()
 	}
 
@@ -1846,27 +1851,27 @@ func (p *PatitoParser) Body() (localctx IBodyContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(123)
+		p.SetState(125)
 		p.Match(PatitoParserT__5)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(127)
+	p.SetState(129)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&4647289088) != 0 {
+	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&13237223680) != 0 {
 		{
-			p.SetState(124)
+			p.SetState(126)
 			p.Stmt()
 		}
 
-		p.SetState(129)
+		p.SetState(131)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -1874,7 +1879,7 @@ func (p *PatitoParser) Body() (localctx IBodyContext) {
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(130)
+		p.SetState(132)
 		p.Match(PatitoParserT__6)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1910,6 +1915,7 @@ type IStmtContext interface {
 	AllStmt() []IStmtContext
 	Stmt(i int) IStmtContext
 	Call() ICallContext
+	ReturnStmt() IReturnStmtContext
 
 	// IsStmtContext differentiates from other interfaces.
 	IsStmtContext()
@@ -2068,6 +2074,22 @@ func (s *StmtContext) Call() ICallContext {
 	return t.(ICallContext)
 }
 
+func (s *StmtContext) ReturnStmt() IReturnStmtContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IReturnStmtContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IReturnStmtContext)
+}
+
 func (s *StmtContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -2103,7 +2125,7 @@ func (p *PatitoParser) Stmt() (localctx IStmtContext) {
 	p.EnterRule(localctx, 18, PatitoParserRULE_stmt)
 	var _la int
 
-	p.SetState(147)
+	p.SetState(150)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -2113,55 +2135,55 @@ func (p *PatitoParser) Stmt() (localctx IStmtContext) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(132)
+			p.SetState(134)
 			p.Assign()
 		}
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(133)
+			p.SetState(135)
 			p.Print_()
 		}
 
 	case 3:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(134)
+			p.SetState(136)
 			p.IfStmt()
 		}
 
 	case 4:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(135)
+			p.SetState(137)
 			p.WhileStmt()
 		}
 
 	case 5:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(136)
+			p.SetState(138)
 			p.Match(PatitoParserT__7)
 			if p.HasError() {
 				// Recognition error - abort rule
 				goto errorExit
 			}
 		}
-		p.SetState(140)
+		p.SetState(142)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
 		}
 		_la = p.GetTokenStream().LA(1)
 
-		for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&4647289088) != 0 {
+		for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&13237223680) != 0 {
 			{
-				p.SetState(137)
+				p.SetState(139)
 				p.Stmt()
 			}
 
-			p.SetState(142)
+			p.SetState(144)
 			p.GetErrorHandler().Sync(p)
 			if p.HasError() {
 				goto errorExit
@@ -2169,7 +2191,7 @@ func (p *PatitoParser) Stmt() (localctx IStmtContext) {
 			_la = p.GetTokenStream().LA(1)
 		}
 		{
-			p.SetState(143)
+			p.SetState(145)
 			p.Match(PatitoParserT__8)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -2180,11 +2202,11 @@ func (p *PatitoParser) Stmt() (localctx IStmtContext) {
 	case 6:
 		p.EnterOuterAlt(localctx, 6)
 		{
-			p.SetState(144)
+			p.SetState(146)
 			p.Call()
 		}
 		{
-			p.SetState(145)
+			p.SetState(147)
 			p.Match(PatitoParserT__0)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -2192,8 +2214,150 @@ func (p *PatitoParser) Stmt() (localctx IStmtContext) {
 			}
 		}
 
+	case 7:
+		p.EnterOuterAlt(localctx, 7)
+		{
+			p.SetState(149)
+			p.ReturnStmt()
+		}
+
 	case antlr.ATNInvalidAltNumber:
 		goto errorExit
+	}
+
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
+
+// IReturnStmtContext is an interface to support dynamic dispatch.
+type IReturnStmtContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// Getter signatures
+	RETURN() antlr.TerminalNode
+	Expr() IExprContext
+
+	// IsReturnStmtContext differentiates from other interfaces.
+	IsReturnStmtContext()
+}
+
+type ReturnStmtContext struct {
+	antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyReturnStmtContext() *ReturnStmtContext {
+	var p = new(ReturnStmtContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PatitoParserRULE_returnStmt
+	return p
+}
+
+func InitEmptyReturnStmtContext(p *ReturnStmtContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PatitoParserRULE_returnStmt
+}
+
+func (*ReturnStmtContext) IsReturnStmtContext() {}
+
+func NewReturnStmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *ReturnStmtContext {
+	var p = new(ReturnStmtContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = PatitoParserRULE_returnStmt
+
+	return p
+}
+
+func (s *ReturnStmtContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *ReturnStmtContext) RETURN() antlr.TerminalNode {
+	return s.GetToken(PatitoParserRETURN, 0)
+}
+
+func (s *ReturnStmtContext) Expr() IExprContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IExprContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IExprContext)
+}
+
+func (s *ReturnStmtContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *ReturnStmtContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *ReturnStmtContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PatitoListener); ok {
+		listenerT.EnterReturnStmt(s)
+	}
+}
+
+func (s *ReturnStmtContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PatitoListener); ok {
+		listenerT.ExitReturnStmt(s)
+	}
+}
+
+func (s *ReturnStmtContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case PatitoVisitor:
+		return t.VisitReturnStmt(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
+func (p *PatitoParser) ReturnStmt() (localctx IReturnStmtContext) {
+	localctx = NewReturnStmtContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 20, PatitoParserRULE_returnStmt)
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(152)
+		p.Match(PatitoParserRETURN)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(153)
+		p.Expr()
+	}
+	{
+		p.SetState(154)
+		p.Match(PatitoParserT__0)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
 	}
 
 errorExit:
@@ -2308,10 +2472,10 @@ func (s *AssignContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) Assign() (localctx IAssignContext) {
 	localctx = NewAssignContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 20, PatitoParserRULE_assign)
+	p.EnterRule(localctx, 22, PatitoParserRULE_assign)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(149)
+		p.SetState(156)
 		p.Match(PatitoParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2319,7 +2483,7 @@ func (p *PatitoParser) Assign() (localctx IAssignContext) {
 		}
 	}
 	{
-		p.SetState(150)
+		p.SetState(157)
 		p.Match(PatitoParserT__9)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2327,11 +2491,11 @@ func (p *PatitoParser) Assign() (localctx IAssignContext) {
 		}
 	}
 	{
-		p.SetState(151)
+		p.SetState(158)
 		p.Expr()
 	}
 	{
-		p.SetState(152)
+		p.SetState(159)
 		p.Match(PatitoParserT__0)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2451,12 +2615,12 @@ func (s *PrintContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) Print_() (localctx IPrintContext) {
 	localctx = NewPrintContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 22, PatitoParserRULE_print)
+	p.EnterRule(localctx, 24, PatitoParserRULE_print)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(154)
+		p.SetState(161)
 		p.Match(PatitoParserESCRIBE)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2464,29 +2628,29 @@ func (p *PatitoParser) Print_() (localctx IPrintContext) {
 		}
 	}
 	{
-		p.SetState(155)
+		p.SetState(162)
 		p.Match(PatitoParserT__3)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(157)
+	p.SetState(164)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	if (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&64425132048) != 0 {
+	if (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&128849641488) != 0 {
 		{
-			p.SetState(156)
+			p.SetState(163)
 			p.PrintItemList()
 		}
 
 	}
 	{
-		p.SetState(159)
+		p.SetState(166)
 		p.Match(PatitoParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2494,7 +2658,7 @@ func (p *PatitoParser) Print_() (localctx IPrintContext) {
 		}
 	}
 	{
-		p.SetState(160)
+		p.SetState(167)
 		p.Match(PatitoParserT__0)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -2635,15 +2799,15 @@ func (s *PrintItemListContext) Accept(visitor antlr.ParseTreeVisitor) interface{
 
 func (p *PatitoParser) PrintItemList() (localctx IPrintItemListContext) {
 	localctx = NewPrintItemListContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 24, PatitoParserRULE_printItemList)
+	p.EnterRule(localctx, 26, PatitoParserRULE_printItemList)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(162)
+		p.SetState(169)
 		p.PrintItem()
 	}
-	p.SetState(167)
+	p.SetState(174)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -2652,7 +2816,7 @@ func (p *PatitoParser) PrintItemList() (localctx IPrintItemListContext) {
 
 	for _la == PatitoParserT__2 {
 		{
-			p.SetState(163)
+			p.SetState(170)
 			p.Match(PatitoParserT__2)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -2660,11 +2824,11 @@ func (p *PatitoParser) PrintItemList() (localctx IPrintItemListContext) {
 			}
 		}
 		{
-			p.SetState(164)
+			p.SetState(171)
 			p.PrintItem()
 		}
 
-		p.SetState(169)
+		p.SetState(176)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -2784,8 +2948,8 @@ func (s *PrintItemContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) PrintItem() (localctx IPrintItemContext) {
 	localctx = NewPrintItemContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 26, PatitoParserRULE_printItem)
-	p.SetState(172)
+	p.EnterRule(localctx, 28, PatitoParserRULE_printItem)
+	p.SetState(179)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -2795,7 +2959,7 @@ func (p *PatitoParser) PrintItem() (localctx IPrintItemContext) {
 	case PatitoParserSTRING:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(170)
+			p.SetState(177)
 			p.Match(PatitoParserSTRING)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -2806,7 +2970,7 @@ func (p *PatitoParser) PrintItem() (localctx IPrintItemContext) {
 	case PatitoParserT__3, PatitoParserT__14, PatitoParserT__15, PatitoParserT__18, PatitoParserID, PatitoParserINT, PatitoParserFLOAT:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(171)
+			p.SetState(178)
 			p.Expr()
 		}
 
@@ -3009,12 +3173,12 @@ func (s *IfStmtContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) IfStmt() (localctx IIfStmtContext) {
 	localctx = NewIfStmtContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 28, PatitoParserRULE_ifStmt)
+	p.EnterRule(localctx, 30, PatitoParserRULE_ifStmt)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(174)
+		p.SetState(181)
 		p.Match(PatitoParserSI)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3022,7 +3186,7 @@ func (p *PatitoParser) IfStmt() (localctx IIfStmtContext) {
 		}
 	}
 	{
-		p.SetState(175)
+		p.SetState(182)
 		p.Match(PatitoParserT__3)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3030,11 +3194,11 @@ func (p *PatitoParser) IfStmt() (localctx IIfStmtContext) {
 		}
 	}
 	{
-		p.SetState(176)
+		p.SetState(183)
 		p.Expr()
 	}
 	{
-		p.SetState(177)
+		p.SetState(184)
 		p.Match(PatitoParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3042,14 +3206,14 @@ func (p *PatitoParser) IfStmt() (localctx IIfStmtContext) {
 		}
 	}
 	{
-		p.SetState(178)
+		p.SetState(185)
 		p.IfMarkThen()
 	}
 	{
-		p.SetState(179)
+		p.SetState(186)
 		p.Body()
 	}
-	p.SetState(184)
+	p.SetState(191)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -3058,7 +3222,7 @@ func (p *PatitoParser) IfStmt() (localctx IIfStmtContext) {
 
 	if _la == PatitoParserSINO {
 		{
-			p.SetState(180)
+			p.SetState(187)
 			p.Match(PatitoParserSINO)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -3066,17 +3230,17 @@ func (p *PatitoParser) IfStmt() (localctx IIfStmtContext) {
 			}
 		}
 		{
-			p.SetState(181)
+			p.SetState(188)
 			p.ElseMark()
 		}
 		{
-			p.SetState(182)
+			p.SetState(189)
 			p.Body()
 		}
 
 	}
 	{
-		p.SetState(186)
+		p.SetState(193)
 		p.Match(PatitoParserT__0)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3170,7 +3334,7 @@ func (s *IfMarkThenContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) IfMarkThen() (localctx IIfMarkThenContext) {
 	localctx = NewIfMarkThenContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 30, PatitoParserRULE_ifMarkThen)
+	p.EnterRule(localctx, 32, PatitoParserRULE_ifMarkThen)
 	p.EnterOuterAlt(localctx, 1)
 
 errorExit:
@@ -3259,7 +3423,7 @@ func (s *ElseMarkContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) ElseMark() (localctx IElseMarkContext) {
 	localctx = NewElseMarkContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 32, PatitoParserRULE_elseMark)
+	p.EnterRule(localctx, 34, PatitoParserRULE_elseMark)
 	p.EnterOuterAlt(localctx, 1)
 
 errorExit:
@@ -3430,10 +3594,10 @@ func (s *WhileStmtContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) WhileStmt() (localctx IWhileStmtContext) {
 	localctx = NewWhileStmtContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 34, PatitoParserRULE_whileStmt)
+	p.EnterRule(localctx, 36, PatitoParserRULE_whileStmt)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(192)
+		p.SetState(199)
 		p.Match(PatitoParserMIENTRAS)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3441,11 +3605,11 @@ func (p *PatitoParser) WhileStmt() (localctx IWhileStmtContext) {
 		}
 	}
 	{
-		p.SetState(193)
+		p.SetState(200)
 		p.WhileStart()
 	}
 	{
-		p.SetState(194)
+		p.SetState(201)
 		p.Match(PatitoParserT__3)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3453,11 +3617,11 @@ func (p *PatitoParser) WhileStmt() (localctx IWhileStmtContext) {
 		}
 	}
 	{
-		p.SetState(195)
+		p.SetState(202)
 		p.Expr()
 	}
 	{
-		p.SetState(196)
+		p.SetState(203)
 		p.Match(PatitoParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3465,11 +3629,11 @@ func (p *PatitoParser) WhileStmt() (localctx IWhileStmtContext) {
 		}
 	}
 	{
-		p.SetState(197)
+		p.SetState(204)
 		p.WhileCond()
 	}
 	{
-		p.SetState(198)
+		p.SetState(205)
 		p.Match(PatitoParserHAZ)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3477,11 +3641,11 @@ func (p *PatitoParser) WhileStmt() (localctx IWhileStmtContext) {
 		}
 	}
 	{
-		p.SetState(199)
+		p.SetState(206)
 		p.Body()
 	}
 	{
-		p.SetState(200)
+		p.SetState(207)
 		p.Match(PatitoParserT__0)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3575,7 +3739,7 @@ func (s *WhileStartContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) WhileStart() (localctx IWhileStartContext) {
 	localctx = NewWhileStartContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 36, PatitoParserRULE_whileStart)
+	p.EnterRule(localctx, 38, PatitoParserRULE_whileStart)
 	p.EnterOuterAlt(localctx, 1)
 
 errorExit:
@@ -3664,7 +3828,7 @@ func (s *WhileCondContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) WhileCond() (localctx IWhileCondContext) {
 	localctx = NewWhileCondContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 38, PatitoParserRULE_whileCond)
+	p.EnterRule(localctx, 40, PatitoParserRULE_whileCond)
 	p.EnterOuterAlt(localctx, 1)
 
 errorExit:
@@ -3805,12 +3969,12 @@ func (s *CallContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) Call() (localctx ICallContext) {
 	localctx = NewCallContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 40, PatitoParserRULE_call)
+	p.EnterRule(localctx, 42, PatitoParserRULE_call)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(206)
+		p.SetState(213)
 		p.Match(PatitoParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -3818,26 +3982,26 @@ func (p *PatitoParser) Call() (localctx ICallContext) {
 		}
 	}
 	{
-		p.SetState(207)
+		p.SetState(214)
 		p.Match(PatitoParserT__3)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(216)
+	p.SetState(223)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	if (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&30065393680) != 0 {
+	if (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&60130164752) != 0 {
 		{
-			p.SetState(208)
+			p.SetState(215)
 			p.Expr()
 		}
-		p.SetState(213)
+		p.SetState(220)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -3846,7 +4010,7 @@ func (p *PatitoParser) Call() (localctx ICallContext) {
 
 		for _la == PatitoParserT__2 {
 			{
-				p.SetState(209)
+				p.SetState(216)
 				p.Match(PatitoParserT__2)
 				if p.HasError() {
 					// Recognition error - abort rule
@@ -3854,11 +4018,11 @@ func (p *PatitoParser) Call() (localctx ICallContext) {
 				}
 			}
 			{
-				p.SetState(210)
+				p.SetState(217)
 				p.Expr()
 			}
 
-			p.SetState(215)
+			p.SetState(222)
 			p.GetErrorHandler().Sync(p)
 			if p.HasError() {
 				goto errorExit
@@ -3868,7 +4032,7 @@ func (p *PatitoParser) Call() (localctx ICallContext) {
 
 	}
 	{
-		p.SetState(218)
+		p.SetState(225)
 		p.Match(PatitoParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -4042,16 +4206,16 @@ func (s *RelExprContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) Expr() (localctx IExprContext) {
 	localctx = NewExprContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 42, PatitoParserRULE_expr)
+	p.EnterRule(localctx, 44, PatitoParserRULE_expr)
 	var _la int
 
 	localctx = NewRelExprContext(p, localctx)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(220)
+		p.SetState(227)
 		p.Sum()
 	}
-	p.SetState(224)
+	p.SetState(231)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -4060,11 +4224,11 @@ func (p *PatitoParser) Expr() (localctx IExprContext) {
 
 	if (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&30720) != 0 {
 		{
-			p.SetState(221)
+			p.SetState(228)
 			p.Relop()
 		}
 		{
-			p.SetState(222)
+			p.SetState(229)
 			p.Sum()
 		}
 
@@ -4156,12 +4320,12 @@ func (s *RelopContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) Relop() (localctx IRelopContext) {
 	localctx = NewRelopContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 44, PatitoParserRULE_relop)
+	p.EnterRule(localctx, 46, PatitoParserRULE_relop)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(226)
+		p.SetState(233)
 		_la = p.GetTokenStream().LA(1)
 
 		if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&30720) != 0) {
@@ -4322,16 +4486,16 @@ func (s *AddSubContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) Sum() (localctx ISumContext) {
 	localctx = NewSumContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 46, PatitoParserRULE_sum)
+	p.EnterRule(localctx, 48, PatitoParserRULE_sum)
 	var _la int
 
 	localctx = NewAddSubContext(p, localctx)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(228)
+		p.SetState(235)
 		p.Prod()
 	}
-	p.SetState(233)
+	p.SetState(240)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -4340,7 +4504,7 @@ func (p *PatitoParser) Sum() (localctx ISumContext) {
 
 	for _la == PatitoParserT__14 || _la == PatitoParserT__15 {
 		{
-			p.SetState(229)
+			p.SetState(236)
 			_la = p.GetTokenStream().LA(1)
 
 			if !(_la == PatitoParserT__14 || _la == PatitoParserT__15) {
@@ -4351,11 +4515,11 @@ func (p *PatitoParser) Sum() (localctx ISumContext) {
 			}
 		}
 		{
-			p.SetState(230)
+			p.SetState(237)
 			p.Prod()
 		}
 
-		p.SetState(235)
+		p.SetState(242)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -4513,16 +4677,16 @@ func (s *MulDivContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) Prod() (localctx IProdContext) {
 	localctx = NewProdContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 48, PatitoParserRULE_prod)
+	p.EnterRule(localctx, 50, PatitoParserRULE_prod)
 	var _la int
 
 	localctx = NewMulDivContext(p, localctx)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(236)
+		p.SetState(243)
 		p.Unary()
 	}
-	p.SetState(241)
+	p.SetState(248)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -4531,7 +4695,7 @@ func (p *PatitoParser) Prod() (localctx IProdContext) {
 
 	for _la == PatitoParserT__16 || _la == PatitoParserT__17 {
 		{
-			p.SetState(237)
+			p.SetState(244)
 			_la = p.GetTokenStream().LA(1)
 
 			if !(_la == PatitoParserT__16 || _la == PatitoParserT__17) {
@@ -4542,11 +4706,11 @@ func (p *PatitoParser) Prod() (localctx IProdContext) {
 			}
 		}
 		{
-			p.SetState(238)
+			p.SetState(245)
 			p.Unary()
 		}
 
-		p.SetState(243)
+		p.SetState(250)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -4735,10 +4899,10 @@ func (s *ToPrimaryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) Unary() (localctx IUnaryContext) {
 	localctx = NewUnaryContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 50, PatitoParserRULE_unary)
+	p.EnterRule(localctx, 52, PatitoParserRULE_unary)
 	var _la int
 
-	p.SetState(247)
+	p.SetState(254)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -4749,7 +4913,7 @@ func (p *PatitoParser) Unary() (localctx IUnaryContext) {
 		localctx = NewPrefixContext(p, localctx)
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(244)
+			p.SetState(251)
 			_la = p.GetTokenStream().LA(1)
 
 			if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&622592) != 0) {
@@ -4760,7 +4924,7 @@ func (p *PatitoParser) Unary() (localctx IUnaryContext) {
 			}
 		}
 		{
-			p.SetState(245)
+			p.SetState(252)
 			p.Unary()
 		}
 
@@ -4768,7 +4932,7 @@ func (p *PatitoParser) Unary() (localctx IUnaryContext) {
 		localctx = NewToPrimaryContext(p, localctx)
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(246)
+			p.SetState(253)
 			p.Primary()
 		}
 
@@ -5090,8 +5254,8 @@ func (s *IntContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *PatitoParser) Primary() (localctx IPrimaryContext) {
 	localctx = NewPrimaryContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 52, PatitoParserRULE_primary)
-	p.SetState(257)
+	p.EnterRule(localctx, 54, PatitoParserRULE_primary)
+	p.SetState(264)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -5102,7 +5266,7 @@ func (p *PatitoParser) Primary() (localctx IPrimaryContext) {
 		localctx = NewParensContext(p, localctx)
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(249)
+			p.SetState(256)
 			p.Match(PatitoParserT__3)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -5110,11 +5274,11 @@ func (p *PatitoParser) Primary() (localctx IPrimaryContext) {
 			}
 		}
 		{
-			p.SetState(250)
+			p.SetState(257)
 			p.Expr()
 		}
 		{
-			p.SetState(251)
+			p.SetState(258)
 			p.Match(PatitoParserT__4)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -5126,7 +5290,7 @@ func (p *PatitoParser) Primary() (localctx IPrimaryContext) {
 		localctx = NewCallPrimContext(p, localctx)
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(253)
+			p.SetState(260)
 			p.Call()
 		}
 
@@ -5134,7 +5298,7 @@ func (p *PatitoParser) Primary() (localctx IPrimaryContext) {
 		localctx = NewIdentContext(p, localctx)
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(254)
+			p.SetState(261)
 			p.Match(PatitoParserID)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -5146,7 +5310,7 @@ func (p *PatitoParser) Primary() (localctx IPrimaryContext) {
 		localctx = NewIntContext(p, localctx)
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(255)
+			p.SetState(262)
 			p.Match(PatitoParserINT)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -5158,7 +5322,7 @@ func (p *PatitoParser) Primary() (localctx IPrimaryContext) {
 		localctx = NewFloatContext(p, localctx)
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(256)
+			p.SetState(263)
 			p.Match(PatitoParserFLOAT)
 			if p.HasError() {
 				// Recognition error - abort rule

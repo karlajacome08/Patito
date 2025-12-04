@@ -43,6 +43,7 @@ func (vt *VariableTable) Lookup(name string) (VariableInfo, bool) {
 type FunctionInfo struct {
 	Name       string
 	ReturnType TypeTag
+	ReturnAddr int // Dirección de la variable de retorno
 	Params     []VariableInfo
 	Locals     VariableTable
 	StartQuad  int
@@ -61,7 +62,10 @@ func (fd *FunctionDirectory) Declare(name string, ret TypeTag) error {
 		return fmt.Errorf("función doblemente declarada: %s", name)
 	}
 	fd.Fns[name] = &FunctionInfo{
-		Name: name, ReturnType: ret, Locals: NewVariableTable(),
+		Name:       name,
+		ReturnAddr: -1,
+		ReturnType: ret,
+		Locals:     NewVariableTable(),
 	}
 	return nil
 }

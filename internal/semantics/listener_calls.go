@@ -50,13 +50,24 @@ func (s *SemanticListener) ExitCall(ctx *p.CallContext) {
 }
 
 func (s *SemanticListener) ExitCallPrim(ctx *p.CallPrimContext) {
-	ret, ok := s.callRet.Pop()
+	callCtx := ctx.Call()
+	name := callCtx.ID().GetText()
+
+	fn, ok := s.FD.Get(name)
 	if !ok {
-		s.err(ctx.GetStart(), "inconsistencia en llamada: falta tipo de retorno")
-		ret = TVoid
+		s.err(ctx.GetStart(), "función no declarada en llamada: "+name)
+		return
 	}
-	if ret == TVoid {
+
+	if fn.ReturnType == TVoid {
 		s.err(ctx.GetStart(), "una función NULA no puede usarse en una expresión")
+		return
 	}
-	s.S.types.Push(ret)
+
+	if fn.ReturnAddr <= 0 {
+		s.err(ctx.GetStart(), "función sin slot de retorno: "+name)
+		return
+	}
+
+	s.S.PushOperand(name, fn.ReturnType, fn.ReturnAddr)
 }

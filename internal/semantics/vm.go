@@ -232,6 +232,18 @@ func (vm *VM) Run() error {
 			vm.ip = parseIntOrZero(q.Result)
 			continue
 
+		case OReturn:
+			vm.set(q.Result, vm.get(q.Arg1))
+
+			n := len(vm.callStack)
+			if n == 0 {
+				return nil
+			}
+			ret := vm.callStack[n-1]
+			vm.callStack = vm.callStack[:n-1]
+			vm.ip = ret
+			continue
+
 		case OEndFunc:
 			n := len(vm.callStack)
 			if n == 0 {

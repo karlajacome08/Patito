@@ -38,6 +38,12 @@ func (s *SemanticListener) EnterFuncDef(ctx *p.FuncDefContext) {
 	s.pushScope(name)
 
 	if fn, ok := s.FD.Get(name); ok {
+		if ret != TVoid {
+			fn.ReturnAddr = s.Mem.AllocVar(KindLocal, ret)
+			if fn.ReturnAddr == -1 {
+				s.err(ctx.GetStart(), fmt.Sprintf("no se pudo asignar dirección a variable de retorno de función: %s", name))
+			}
+		}
 		fn.StartQuad = s.S.Quads().Len()
 	}
 }

@@ -38,6 +38,9 @@ type PatitoVisitor interface {
 	// Visit a parse tree produced by PatitoParser#stmt.
 	VisitStmt(ctx *StmtContext) interface{}
 
+	// Visit a parse tree produced by PatitoParser#returnStmt.
+	VisitReturnStmt(ctx *ReturnStmtContext) interface{}
+
 	// Visit a parse tree produced by PatitoParser#assign.
 	VisitAssign(ctx *AssignContext) interface{}
 

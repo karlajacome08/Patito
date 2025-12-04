@@ -48,6 +48,10 @@ func (v *BasePatitoVisitor) VisitStmt(ctx *StmtContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
+func (v *BasePatitoVisitor) VisitReturnStmt(ctx *ReturnStmtContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BasePatitoVisitor) VisitAssign(ctx *AssignContext) interface{} {
 	return v.VisitChildren(ctx)
 }

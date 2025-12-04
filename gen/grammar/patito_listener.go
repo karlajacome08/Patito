@@ -38,6 +38,9 @@ type PatitoListener interface {
 	// EnterStmt is called when entering the stmt production.
 	EnterStmt(c *StmtContext)
 
+	// EnterReturnStmt is called when entering the returnStmt production.
+	EnterReturnStmt(c *ReturnStmtContext)
+
 	// EnterAssign is called when entering the assign production.
 	EnterAssign(c *AssignContext)
 
@@ -133,6 +136,9 @@ type PatitoListener interface {
 
 	// ExitStmt is called when exiting the stmt production.
 	ExitStmt(c *StmtContext)
+
+	// ExitReturnStmt is called when exiting the returnStmt production.
+	ExitReturnStmt(c *ReturnStmtContext)
 
 	// ExitAssign is called when exiting the assign production.
 	ExitAssign(c *AssignContext)
