@@ -25,7 +25,7 @@ func NewCube() Cube {
 	}
 	add("%", TInt, TInt, TInt)
 
-	for _, op := range []string{"==", "!=", "<", "<=", ">", ">="} {
+	for _, op := range []string{"==", "!=", "<", ">"} {
 		add(op, TInt, TInt, TBool)
 		add(op, TInt, TFloat, TBool)
 		add(op, TFloat, TInt, TBool)
@@ -37,9 +37,6 @@ func NewCube() Cube {
 		add(op, TString, TString, TBool)
 	}
 
-	// Lógicos
-	add("&&", TBool, TBool, TBool)
-	add("||", TBool, TBool, TBool)
 	return c
 }
 
@@ -76,33 +73,15 @@ func ResultType(op Op, left, right TypeTag) (TypeTag, bool) {
 			return TInt, true
 		}
 		return TInvalid, false
-	case OEq, ONEq, OLt, OLe, OGt, OGe:
+	case OEq, ONEq, OLt, OGt:
 		if (left == TInt || left == TFloat) && (right == TInt || right == TFloat) {
 			return TBool, true
 		}
 		return TInvalid, false
-	case OAnd, OOr:
-		if left == TBool && right == TBool {
-			return TBool, true
-		}
-		return TInvalid, false
+
 	default:
 		return TInvalid, false
 	}
-}
-
-func ResultTypeUnary(op Op, t TypeTag) (TypeTag, bool) {
-	switch op {
-	case OUMinus:
-		if t == TInt || t == TFloat {
-			return t, true
-		}
-	case ONot:
-		if t == TBool {
-			return TBool, true
-		}
-	}
-	return TInvalid, false
 }
 
 func IsCompatibleAssign(dst, src TypeTag) bool {

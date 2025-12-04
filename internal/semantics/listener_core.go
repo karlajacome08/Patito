@@ -21,6 +21,8 @@ type SemanticListener struct {
 	types   Stack[TypeTag]
 	callRet Stack[TypeTag]
 
+	Mem *MemManager
+
 	errors []error
 }
 
@@ -28,11 +30,14 @@ func NewSemanticListener() *SemanticListener {
 	fd := NewFunctionDirectory()
 	_ = fd.Declare("global", TVoid)
 
+	mem := NewMemManager()
+
 	return &SemanticListener{
 		FD:    fd,
 		Cube:  NewCube(),
 		scope: []string{"global"},
-		S:     NewSemState(),
+		S:     NewSemState(mem),
+		Mem:   mem,
 	}
 }
 

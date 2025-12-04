@@ -30,7 +30,6 @@ func main() {
 	listener := semantics.NewSemanticListener()
 	antlr.ParseTreeWalkerDefault.Walk(listener, tree)
 
-	// Errores léxicos/sintácticos/semánticos
 	if err := listener.Error(); err != nil {
 		fmt.Println("=== ERRORES ===")
 		fmt.Println(err.Error())

@@ -71,12 +71,11 @@ func (fd *FunctionDirectory) Get(name string) (*FunctionInfo, bool) {
 	return f, ok
 }
 
-func (fd *FunctionDirectory) AddParam(fn, name string, t TypeTag) error {
+func (fd *FunctionDirectory) AddParam(fn string, v VariableInfo) error {
 	f, ok := fd.Get(fn)
 	if !ok {
 		return fmt.Errorf("función no declarada: %s", fn)
 	}
-	v := VariableInfo{Name: name, Type: t, Kind: KindParam}
 	f.Params = append(f.Params, v)
 	return f.Locals.Insert(v)
 }

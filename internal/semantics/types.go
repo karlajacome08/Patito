@@ -36,24 +36,25 @@ func (t TypeTag) String() string {
 type Op int
 
 const (
-	OAdd    Op = iota // +
-	OSub              // -
-	OMul              // *
-	ODiv              // /
-	OAssign           // =
-	OEq               // ==
-	ONEq              // !=
-	OLt               // <
-	OLe               // <=
-	OGt               // >
-	OGe               // >=
-	OAnd              // &&
-	OOr               // ||
-	OUMinus           // unary -
-	ONot              // !
-	ORead             // READ id
-	OWrite            // WRITE expr/string
-	OParen            // '(' marcador interno para la pila
+	OAdd Op = iota
+	OSub
+	OMul
+	ODiv
+	OAssign
+	OEq
+	ONEq
+	OLt
+	OGt
+	ORead
+	OWrite
+	OParen
+	OGoto
+	OGotoF
+	OEra
+	OParam
+	OGoSub
+	OReturn
+	OEndFunc
 )
 
 func (o Op) String() string {
@@ -74,32 +75,35 @@ func (o Op) String() string {
 		return "!="
 	case OLt:
 		return "<"
-	case OLe:
-		return "<="
 	case OGt:
 		return ">"
-	case OGe:
-		return ">="
-	case OAnd:
-		return "&&"
-	case OOr:
-		return "||"
-	case OUMinus:
-		return "unary -"
-	case ONot:
-		return "!"
 	case ORead:
 		return "READ"
 	case OWrite:
 		return "WRITE"
 	case OParen:
 		return "("
+	case OGoto:
+		return "GOTO"
+	case OGotoF:
+		return "GOTOF"
+	case OEra:
+		return "ERA"
+	case OParam:
+		return "PARAM"
+	case OGoSub:
+		return "GOSUB"
+	case OReturn:
+		return "RETURN"
+	case OEndFunc:
+		return "ENDFUNC"
 	default:
 		return "?"
 	}
 }
 
 type Addr struct {
-	Name string
-	Type TypeTag
+	Name    string
+	Type    TypeTag
+	Address int
 }

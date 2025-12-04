@@ -105,17 +105,41 @@ func (s *BasePatitoListener) EnterPrintItem(ctx *PrintItemContext) {}
 // ExitPrintItem is called when production printItem is exited.
 func (s *BasePatitoListener) ExitPrintItem(ctx *PrintItemContext) {}
 
+// EnterIfStmt is called when production ifStmt is entered.
+func (s *BasePatitoListener) EnterIfStmt(ctx *IfStmtContext) {}
+
+// ExitIfStmt is called when production ifStmt is exited.
+func (s *BasePatitoListener) ExitIfStmt(ctx *IfStmtContext) {}
+
+// EnterIfMarkThen is called when production ifMarkThen is entered.
+func (s *BasePatitoListener) EnterIfMarkThen(ctx *IfMarkThenContext) {}
+
+// ExitIfMarkThen is called when production ifMarkThen is exited.
+func (s *BasePatitoListener) ExitIfMarkThen(ctx *IfMarkThenContext) {}
+
+// EnterElseMark is called when production elseMark is entered.
+func (s *BasePatitoListener) EnterElseMark(ctx *ElseMarkContext) {}
+
+// ExitElseMark is called when production elseMark is exited.
+func (s *BasePatitoListener) ExitElseMark(ctx *ElseMarkContext) {}
+
 // EnterWhileStmt is called when production whileStmt is entered.
 func (s *BasePatitoListener) EnterWhileStmt(ctx *WhileStmtContext) {}
 
 // ExitWhileStmt is called when production whileStmt is exited.
 func (s *BasePatitoListener) ExitWhileStmt(ctx *WhileStmtContext) {}
 
-// EnterIfStmt is called when production ifStmt is entered.
-func (s *BasePatitoListener) EnterIfStmt(ctx *IfStmtContext) {}
+// EnterWhileStart is called when production whileStart is entered.
+func (s *BasePatitoListener) EnterWhileStart(ctx *WhileStartContext) {}
 
-// ExitIfStmt is called when production ifStmt is exited.
-func (s *BasePatitoListener) ExitIfStmt(ctx *IfStmtContext) {}
+// ExitWhileStart is called when production whileStart is exited.
+func (s *BasePatitoListener) ExitWhileStart(ctx *WhileStartContext) {}
+
+// EnterWhileCond is called when production whileCond is entered.
+func (s *BasePatitoListener) EnterWhileCond(ctx *WhileCondContext) {}
+
+// ExitWhileCond is called when production whileCond is exited.
+func (s *BasePatitoListener) ExitWhileCond(ctx *WhileCondContext) {}
 
 // EnterCall is called when production call is entered.
 func (s *BasePatitoListener) EnterCall(ctx *CallContext) {}

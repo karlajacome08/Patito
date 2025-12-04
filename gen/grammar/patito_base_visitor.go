@@ -64,11 +64,27 @@ func (v *BasePatitoVisitor) VisitPrintItem(ctx *PrintItemContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
+func (v *BasePatitoVisitor) VisitIfStmt(ctx *IfStmtContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BasePatitoVisitor) VisitIfMarkThen(ctx *IfMarkThenContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BasePatitoVisitor) VisitElseMark(ctx *ElseMarkContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BasePatitoVisitor) VisitWhileStmt(ctx *WhileStmtContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
-func (v *BasePatitoVisitor) VisitIfStmt(ctx *IfStmtContext) interface{} {
+func (v *BasePatitoVisitor) VisitWhileStart(ctx *WhileStartContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BasePatitoVisitor) VisitWhileCond(ctx *WhileCondContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 

@@ -15,14 +15,22 @@ func (s *SemanticListener) ExitCall(ctx *p.CallContext) {
 		return
 	}
 
-	// Conteo y tipos de args
 	argCount := len(ctx.AllExpr())
 	if argCount != len(fn.Params) {
 		s.err(ctx.GetStart(), fmt.Sprintf("llamada a %s: se esperaban %d args, llegaron %d",
 			name, len(fn.Params), argCount))
 	}
+
+	s.S.Quads().Emit(OEra, name, "", "")
+
+	//De abajo a arriba
 	for i := argCount - 1; i >= 0; i-- {
-		argT, ok := s.types.Pop()
+		argVal, okOp := s.S.operands.Pop()
+		if !okOp {
+			s.err(ctx.GetStart(), "faltan operandos para los argumentos de la llamada")
+			break
+		}
+		argT, ok := s.S.types.Pop()
 		if !ok {
 			s.err(ctx.GetStart(), "faltan argumentos evaluados en pila de tipos")
 			break
@@ -33,7 +41,11 @@ func (s *SemanticListener) ExitCall(ctx *p.CallContext) {
 					i+1, name, fn.Params[i].Type, argT))
 			}
 		}
+
+		s.S.Quads().Emit(OParam, ToAddrString(argVal.Address), "", fmt.Sprintf("%d", i))
 	}
+
+	s.S.Quads().Emit(OGoSub, name, "", fmt.Sprintf("%d", fn.StartQuad))
 	s.callRet.Push(fn.ReturnType)
 }
 
@@ -46,5 +58,5 @@ func (s *SemanticListener) ExitCallPrim(ctx *p.CallPrimContext) {
 	if ret == TVoid {
 		s.err(ctx.GetStart(), "una función NULA no puede usarse en una expresión")
 	}
-	s.types.Push(ret)
+	s.S.types.Push(ret)
 }

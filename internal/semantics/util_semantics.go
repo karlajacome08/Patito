@@ -7,11 +7,6 @@ import (
 	"github.com/antlr4-go/antlr/v4"
 )
 
-///////////////////////////////
-// UTILIDADES NECESARIAS
-///////////////////////////////
-
-// lookup: busca una variable primero en el scope actual y luego en 'global'.
 func (s *SemanticListener) lookup(name string) (VariableInfo, bool) {
 	if f, ok := s.FD.Get(s.curScope()); ok {
 		if v, ok := f.Locals.Lookup(name); ok {
@@ -26,7 +21,6 @@ func (s *SemanticListener) lookup(name string) (VariableInfo, bool) {
 	return VariableInfo{}, false
 }
 
-// mapType: mapea el texto del tipo léxico a nuestro TypeTag.
 func mapType(tctx antlr.ParserRuleContext) TypeTag {
 	if tctx == nil {
 		return TVoid
@@ -44,34 +38,31 @@ func mapType(tctx antlr.ParserRuleContext) TypeTag {
 	}
 }
 
-// MOTOR DE CUÁDRUPLOS
-
-// Precedencias (mayor número = mayor precedencia)
 var prec = map[Op]int{
-	OOr:  0,
-	OAnd: 1,
-	OEq:  2, ONEq: 2, OLt: 2, OLe: 2, OGt: 2, OGe: 2, // relacionales
-	OAdd: 3, OSub: 3,
-	OMul: 4, ODiv: 4,
-	OUMinus: 5, ONot: 5,
-}
+	OEq: 1, ONEq: 1, OLt: 1, OGt: 1,
+	OAdd: 2, OSub: 2,
+	OMul: 3, ODiv: 3}
 
-func isUnary(op Op) bool { return op == OUMinus || op == ONot }
-
-// Generador de temporales t1, t2, ...
 func (s *SemState) newTemp(t TypeTag) Addr {
 	s.tmpCount++
-	return Addr{Name: fmt.Sprintf("t%d", s.tmpCount), Type: t}
+	addr := s.mem.AllocTemp(t)
+	return Addr{
+		Name:    fmt.Sprintf("t%d", s.tmpCount),
+		Type:    t,
+		Address: addr,
+	}
 }
 
-// Empuja un operando y su tipo (id, cte o temp)
-func (s *SemState) PushOperand(name string, t TypeTag) {
-	addr := Addr{Name: name, Type: t}
-	s.operands.Push(addr)
+func (s *SemState) PushOperand(name string, t TypeTag, addr int) {
+	a := Addr{
+		Name:    name,
+		Type:    t,
+		Address: addr,
+	}
+	s.operands.Push(a)
 	s.types.Push(t)
 }
 
-// Empuja operador con reducciones por precedencia
 func (s *SemState) PushOperator(op Op) {
 	for !s.operators.Empty() {
 		top, ok := s.operators.Peek()
@@ -100,7 +91,6 @@ func (s *SemState) CloseParen() {
 	}
 }
 
-// Cierra una expresión (antes de ';', ')' o ',')
 func (s *SemState) EndExpression() {
 	for !s.operators.Empty() {
 		top, _ := s.operators.Peek()
@@ -111,33 +101,11 @@ func (s *SemState) EndExpression() {
 	}
 }
 
-// Reducción de un solo operador del tope (usa el cubo semántico)
 func (s *SemState) reduceOnce() {
 	op, ok := s.operators.Pop()
 	if !ok {
-		return // nada que reducir
-	}
-
-	// UNARIO
-	if isUnary(op) {
-		x, ok := s.operands.Pop()
-		if !ok {
-			panic(fmt.Errorf("unario %s sin operando", op.String()))
-		}
-		_, _ = s.types.Pop() // mantener alineada la pila de tipos
-
-		tRes, ok := ResultTypeUnary(op, x.Type)
-		if !ok {
-			panic(fmt.Errorf("tipo inválido: %s %v", op.String(), x.Type))
-		}
-		tmp := s.newTemp(tRes)
-		s.quads.Emit(op, x.Name, "", tmp.Name)
-		s.operands.Push(tmp)
-		s.types.Push(tmp.Type)
 		return
 	}
-
-	// BINARIO
 	rb, ok := s.operands.Pop()
 	if !ok {
 		panic(fmt.Errorf("operador %s sin RHS", op.String()))
@@ -155,29 +123,31 @@ func (s *SemState) reduceOnce() {
 		panic(fmt.Errorf("tipos inválidos: %v %s %v", ta, op.String(), tb))
 	}
 	tmp := s.newTemp(tRes)
-	s.quads.Emit(op, ra.Name, rb.Name, tmp.Name)
+	s.quads.Emit(op, ToAddrString(ra.Address), ToAddrString(rb.Address), ToAddrString(tmp.Address))
 	s.operands.Push(tmp)
 	s.types.Push(tmp.Type)
 }
 
-// ===== Estatutos lineales =====
-
-// Asignación: LHS = (expr)
-func (s *SemState) DoAssign(lhsName string, lhsType TypeTag) {
+func (s *SemState) DoAssign(lhsAddr int, lhsType TypeTag) {
 	s.EndExpression()
 	rhs, ok := s.operands.Pop()
 	if !ok {
-		panic(fmt.Errorf("asignación sin RHS para %s", lhsName))
+		panic(fmt.Errorf("asignación sin RHS"))
 	}
 	_, _ = s.types.Pop()
 
 	if !IsCompatibleAssign(lhsType, rhs.Type) {
 		panic(fmt.Errorf("asignación incompatible: %v ← %v", lhsType, rhs.Type))
 	}
-	s.quads.Emit(OAssign, rhs.Name, "", lhsName)
+
+	s.quads.Emit(
+		OAssign,
+		ToAddrString(rhs.Address),
+		"",
+		ToAddrString(lhsAddr),
+	)
 }
 
-// write(expr);
 func (s *SemState) DoWriteExpr() {
 	s.EndExpression()
 	val, ok := s.operands.Pop()
@@ -185,42 +155,57 @@ func (s *SemState) DoWriteExpr() {
 		panic(fmt.Errorf("write sin expresión"))
 	}
 	_, _ = s.types.Pop()
-	s.quads.Emit(OWrite, val.Name, "", "")
+
+	arg := val.Name
+	if val.Address > 0 {
+		arg = ToAddrString(val.Address)
+	}
+	s.quads.Emit(OWrite, arg, "", "")
 }
 
-func (s *SemState) DoReadID(idName string) {
-	s.quads.Emit(ORead, "", "", idName)
+func (s *SemState) DoReadID(idAddr int) {
+	s.quads.Emit(ORead, "", "", ToAddrString(idAddr))
 }
 
-func (s *SemState) OnId(name string, t TypeTag) { s.PushOperand(name, t) }
+func (s *SemState) OnId(name string, t TypeTag, addr int) {
+	s.PushOperand(name, t, addr)
+}
 
-func (s *SemState) OnIntConst(lit string)   { s.PushOperand(lit, TInt) }
-func (s *SemState) OnFloatConst(lit string) { s.PushOperand(lit, TFloat) }
-func (s *SemState) OnBoolConst(lit string)  { s.PushOperand(lit, TBool) }
+func (s *SemState) OnIntConst(lit string) {
+	addr := s.mem.AllocConstInt(lit)
+	s.PushOperand(lit, TInt, addr)
+}
 
-func (s *SemState) OnAdd()    { s.PushOperator(OAdd) }
-func (s *SemState) OnSub()    { s.PushOperator(OSub) }
-func (s *SemState) OnMul()    { s.PushOperator(OMul) }
-func (s *SemState) OnDiv()    { s.PushOperator(ODiv) }
-func (s *SemState) OnLt()     { s.PushOperator(OLt) }
-func (s *SemState) OnLe()     { s.PushOperator(OLe) }
-func (s *SemState) OnGt()     { s.PushOperator(OGt) }
-func (s *SemState) OnGe()     { s.PushOperator(OGe) }
-func (s *SemState) OnEq()     { s.PushOperator(OEq) }
-func (s *SemState) OnNeq()    { s.PushOperator(ONEq) }
-func (s *SemState) OnAnd()    { s.PushOperator(OAnd) }
-func (s *SemState) OnOr()     { s.PushOperator(OOr) }
-func (s *SemState) OnUMinus() { s.PushOperator(OUMinus) }
-func (s *SemState) OnNot()    { s.PushOperator(ONot) }
+func (s *SemState) OnFloatConst(lit string) {
+	addr := s.mem.AllocConstFloat(lit)
+	s.PushOperand(lit, TFloat, addr)
+}
+
+func (s *SemState) OnBoolConst(lit string) {
+	s.PushOperand(lit, TBool, -1)
+}
+
+func (s *SemState) OnStringConst(lit string) {
+	s.PushOperand(lit, TString, -1)
+}
+
+// Operadores
+func (s *SemState) OnAdd() { s.PushOperator(OAdd) }
+func (s *SemState) OnSub() { s.PushOperator(OSub) }
+func (s *SemState) OnMul() { s.PushOperator(OMul) }
+func (s *SemState) OnDiv() { s.PushOperator(ODiv) }
+func (s *SemState) OnLt()  { s.PushOperator(OLt) }
+func (s *SemState) OnGt()  { s.PushOperator(OGt) }
+func (s *SemState) OnEq()  { s.PushOperator(OEq) }
+func (s *SemState) OnNeq() { s.PushOperator(ONEq) }
 
 func (s *SemState) OnLParen()  { s.OpenParen() }
 func (s *SemState) OnRParen()  { s.CloseParen() }
 func (s *SemState) OnEndExpr() { s.EndExpression() }
 
-// Estatutos
-func (s *SemState) OnAssign(lhsName string, lhsType TypeTag) { s.DoAssign(lhsName, lhsType) }
-func (s *SemState) OnRead(idName string)                     { s.DoReadID(idName) }
-func (s *SemState) OnWriteExpr()                             { s.DoWriteExpr() }
+func (s *SemState) OnAssign(lhsAddr int, lhsType TypeTag) { s.DoAssign(lhsAddr, lhsType) }
+func (s *SemState) OnRead(idAddr int)                     { s.DoReadID(idAddr) }
+func (s *SemState) OnWriteExpr()                          { s.DoWriteExpr() }
 
 func ifElse[T any](cond bool, a, b T) T {
 	if cond {
@@ -229,5 +214,13 @@ func ifElse[T any](cond bool, a, b T) T {
 	return b
 }
 
-// Empujar string literal como operando; luego OnWriteExpr lo imprime
-func (s *SemState) OnStringConst(lit string) { s.PushOperand(lit, TString) }
+func (s *SemState) EmitERA(funcName string) { s.quads.Emit(OEra, funcName, "", "") }
+func (s *SemState) EmitParam(arg Addr, index int) {
+	s.quads.Emit(OParam, ToAddrString(arg.Address), "", fmt.Sprintf("%d", index))
+}
+
+func (s *SemanticListener) EmitGoSub(funcName string, startIndex int) {
+	s.S.Quads().Emit(OGoSub, funcName, "", fmt.Sprintf("%d", startIndex))
+}
+
+func (s *SemanticListener) EmitEndFunc() { s.S.Quads().Emit(OEndFunc, "", "", "") }

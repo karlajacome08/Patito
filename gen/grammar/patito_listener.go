@@ -50,11 +50,23 @@ type PatitoListener interface {
 	// EnterPrintItem is called when entering the printItem production.
 	EnterPrintItem(c *PrintItemContext)
 
+	// EnterIfStmt is called when entering the ifStmt production.
+	EnterIfStmt(c *IfStmtContext)
+
+	// EnterIfMarkThen is called when entering the ifMarkThen production.
+	EnterIfMarkThen(c *IfMarkThenContext)
+
+	// EnterElseMark is called when entering the elseMark production.
+	EnterElseMark(c *ElseMarkContext)
+
 	// EnterWhileStmt is called when entering the whileStmt production.
 	EnterWhileStmt(c *WhileStmtContext)
 
-	// EnterIfStmt is called when entering the ifStmt production.
-	EnterIfStmt(c *IfStmtContext)
+	// EnterWhileStart is called when entering the whileStart production.
+	EnterWhileStart(c *WhileStartContext)
+
+	// EnterWhileCond is called when entering the whileCond production.
+	EnterWhileCond(c *WhileCondContext)
 
 	// EnterCall is called when entering the call production.
 	EnterCall(c *CallContext)
@@ -134,11 +146,23 @@ type PatitoListener interface {
 	// ExitPrintItem is called when exiting the printItem production.
 	ExitPrintItem(c *PrintItemContext)
 
+	// ExitIfStmt is called when exiting the ifStmt production.
+	ExitIfStmt(c *IfStmtContext)
+
+	// ExitIfMarkThen is called when exiting the ifMarkThen production.
+	ExitIfMarkThen(c *IfMarkThenContext)
+
+	// ExitElseMark is called when exiting the elseMark production.
+	ExitElseMark(c *ElseMarkContext)
+
 	// ExitWhileStmt is called when exiting the whileStmt production.
 	ExitWhileStmt(c *WhileStmtContext)
 
-	// ExitIfStmt is called when exiting the ifStmt production.
-	ExitIfStmt(c *IfStmtContext)
+	// ExitWhileStart is called when exiting the whileStart production.
+	ExitWhileStart(c *WhileStartContext)
+
+	// ExitWhileCond is called when exiting the whileCond production.
+	ExitWhileCond(c *WhileCondContext)
 
 	// ExitCall is called when exiting the call production.
 	ExitCall(c *CallContext)

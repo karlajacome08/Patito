@@ -50,11 +50,23 @@ type PatitoVisitor interface {
 	// Visit a parse tree produced by PatitoParser#printItem.
 	VisitPrintItem(ctx *PrintItemContext) interface{}
 
+	// Visit a parse tree produced by PatitoParser#ifStmt.
+	VisitIfStmt(ctx *IfStmtContext) interface{}
+
+	// Visit a parse tree produced by PatitoParser#ifMarkThen.
+	VisitIfMarkThen(ctx *IfMarkThenContext) interface{}
+
+	// Visit a parse tree produced by PatitoParser#elseMark.
+	VisitElseMark(ctx *ElseMarkContext) interface{}
+
 	// Visit a parse tree produced by PatitoParser#whileStmt.
 	VisitWhileStmt(ctx *WhileStmtContext) interface{}
 
-	// Visit a parse tree produced by PatitoParser#ifStmt.
-	VisitIfStmt(ctx *IfStmtContext) interface{}
+	// Visit a parse tree produced by PatitoParser#whileStart.
+	VisitWhileStart(ctx *WhileStartContext) interface{}
+
+	// Visit a parse tree produced by PatitoParser#whileCond.
+	VisitWhileCond(ctx *WhileCondContext) interface{}
 
 	// Visit a parse tree produced by PatitoParser#call.
 	VisitCall(ctx *CallContext) interface{}

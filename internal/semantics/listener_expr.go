@@ -9,10 +9,15 @@ import (
 func (s *SemanticListener) ExitIdent(ctx *p.IdentContext) {
 	name := ctx.ID().GetText()
 	if v, ok := s.lookup(name); ok {
-		s.S.OnId(name, v.Type)
+		if v.Address == 0 {
+			s.err(ctx.GetStart(), "variable sin dirección asignada: "+name)
+		}
+		// nombre lógico + tipo + address real
+		s.S.OnId(name, v.Type, v.Address)
 	} else {
 		s.err(ctx.GetStart(), "variable no declarada: "+name)
-		s.S.OnId(name, TVoid)
+		// empujamos algo inválido
+		s.S.OnId(name, TVoid, -1)
 	}
 }
 
@@ -51,12 +56,7 @@ func (s *SemanticListener) ExitPrefix(ctx *p.PrefixContext) {
 	if txt == "" {
 		return
 	}
-	switch txt[0] {
-	case '-':
-		s.S.OnUMinus()
-	case '!':
-		s.S.OnNot()
-	}
+
 }
 
 func (s *SemanticListener) ExitRelExpr(ctx *p.RelExprContext) {
@@ -68,12 +68,8 @@ func (s *SemanticListener) ExitRelExpr(ctx *p.RelExprContext) {
 			s.S.OnNeq()
 		case "<":
 			s.S.OnLt()
-		case "<=":
-			s.S.OnLe()
 		case ">":
 			s.S.OnGt()
-		case ">=":
-			s.S.OnGe()
 		}
 	}
 	s.S.OnEndExpr()

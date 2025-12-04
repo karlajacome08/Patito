@@ -23,7 +23,6 @@ type_
   | FLOTANTE
   ;
 
-// (nula|tipo) id ( [params] ) { [vars] body } ;
 funcDef
   : (NULA | type_) ID '(' params? ')' '{' vars? body '}' ';'
   ;
@@ -40,7 +39,6 @@ body
   : '{' stmt* '}'
   ;
 
-// Statement
 stmt
   : assign 
   | print
@@ -67,25 +65,41 @@ printItem
   | expr
   ;
 
-whileStmt
-  : MIENTRAS '(' expr ')' HAZ body ';'
+ifStmt
+  : SI '(' expr ')' ifMarkThen body (SINO elseMark body)? ';'
   ;
 
-ifStmt
-  : SI '(' expr ')' body (SINO body)? ';'
+ifMarkThen
+  : 
   ;
+
+elseMark
+  : 
+  ;
+
+whileStmt
+  : MIENTRAS whileStart '(' expr ')' whileCond HAZ body ';'
+  ;
+
+whileStart
+  : 
+  ;
+
+whileCond
+  : 
+  ;
+
 
 call
   : ID '(' (expr (',' expr)*)? ')'
   ;
 
-// Expresiones con precedencia: rel < +,- < *,/ < unaria
 expr
-  : sum (relop sum)?                  # RelExpr
+  : sum (relop sum)? # RelExpr
   ;
 
 relop
-  : '==' | '!=' | '<=' | '>=' | '<' | '>'
+  : '==' | '!=' | '<' | '>'
   ;
 
 sum
@@ -108,6 +122,8 @@ primary
   | INT                                # Int
   | FLOAT                              # Float
   ;
+
+
 
 // Lexer rules
 

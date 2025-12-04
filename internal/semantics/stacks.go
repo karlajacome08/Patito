@@ -26,7 +26,6 @@ func (s *Stack[T]) Peek() (T, bool) {
 }
 func (s *Stack[T]) Clear() { s.data = s.data[:0] }
 
-// -------- Quad queue --------
 type Quad struct {
 	Op     Op
 	Arg1   string
@@ -40,6 +39,7 @@ func (q *QuadQueue) Emit(op Op, a1, a2, r string) int {
 	q.list = append(q.list, Quad{Op: op, Arg1: a1, Arg2: a2, Result: r})
 	return len(q.list) - 1
 }
+
 func (q *QuadQueue) At(i int) Quad { return q.list[i] }
 func (q *QuadQueue) Len() int      { return len(q.list) }
 func (q *QuadQueue) String() string {
@@ -50,15 +50,19 @@ func (q *QuadQueue) String() string {
 	return out
 }
 
-// -------- Estado semántico (pilas + quads) --------
 type SemState struct {
 	operands  Stack[Addr]
 	operators Stack[Op]
 	types     Stack[TypeTag]
 	quads     QuadQueue
 	tmpCount  int
+
+	mem       *MemManager
+	jumpStack Stack[int]
 }
 
-func NewSemState() *SemState { return &SemState{} }
+func NewSemState(mem *MemManager) *SemState {
+	return &SemState{mem: mem}
+}
 
 func (s *SemState) Quads() *QuadQueue { return &s.quads }
